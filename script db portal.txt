@@ -1,0 +1,49 @@
+Create database portal;
+GO
+Use portal;
+GO
+Create Table usuario(
+	id_usuario int primary key identity,
+	nombre varchar(50),
+	nombre_usuario varchar(50) not null unique,
+	empresa int,
+	direccion varchar(100),
+	telefono varchar(09),
+	foto varbinary(max),
+	correo varchar(50)
+);
+GO
+Create Table oferta(
+	id_oferta int primary key identity,
+	tipo_trabajo varchar(50),
+	experiencia varchar(50),
+	salario float,
+	tipo_contrato varchar(100),
+	ubicacion varchar(50),
+	id_empresa int,
+	constraint fk_usuario foreign key (id_empresa) references usuario (id_usuario) 
+);
+GO
+Create Table busquedas(
+	id_busqueda int primary key identity,
+	id_oferta int,
+	id_usuario int,
+	constraint fk_oferta foreign key (id_oferta) references oferta,
+	constraint fk_usuario_busqueda foreign key (id_usuario) references usuario
+);
+GO
+Create Table det_oferta(
+	id_det_oferta int primary key identity,
+	id_usuario int,
+	id_oferta int,
+	curriculum varbinary (max),
+	constraint fk_oferta_det_oferta foreign key (id_oferta) references oferta,
+	constraint fk_usuario_det_oferta foreign key (id_usuario) references usuario
+);
+GO
+Create Table comentario(
+	id_det_oferta int primary key identity,
+	comentario varchar(150),
+	id_usuario_null int
+);
+GO
