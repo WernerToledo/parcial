@@ -30,7 +30,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Index">Usuario</a>
                         </li>
                     </ul>
-                    <form class="d-flex" role="search" action="/oferta/Buscar">
+                    <form class="d-flex" role="search" asp-controller="oferta" asp-action="Buscar">
                         <input class="form-control me-2" type="text" placeholder="Buscar trabajo" aria-label="Search" name="nombre">
                         <button class="btn btn-outline-success" type="submit">Buscar</button>
                     </form>
