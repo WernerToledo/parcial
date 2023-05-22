@@ -19,25 +19,42 @@ namespace parcial.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Buscar(string pNombre)
+        public async Task<IActionResult> Buscar(string nombre)
         {
-            if(pNombre.IsNullOrEmpty())
-            {
-                return RedirectToAction("NotFound");
-            }
-            else
-            {
-                return View();
-            }
 
-            //var listadoTrabajos = (from o in _ofertaContext.oferta
-            //                       where o.tipo_trabajo.Contains(pNombre)
-            //                       select o).ToList();
-            //if (listadoTrabajos.Any())
+            //if (string.IsNullOrEmpty(nombre))
+            //{
+            //    return RedirectToAction("Notfound");
+            //}
+            //else
             //{
             //    return View();
             //}
-            //return RedirectToAction("NotFound");
+
+            var listadoTrabajos = (from o in _ofertaContext.oferta
+                                   join e in _ofertaContext.usuario
+                                   on o.id_empresa equals e.id_usuario
+                                   where o.tipo_trabajo.Contains(nombre)
+                                   select new
+                                   {
+                                       o.tipo_trabajo,
+                                       o.salario,
+                                       o.experiencia,
+                                       o.tipo_contrato,
+                                       o.ubicacion,
+                                       e.nombre
+                                   }).ToList();
+
+            if (listadoTrabajos.Any())
+            {
+                ViewData["ListaTrabajos"] = listadoTrabajos;
+                return View(listadoTrabajos);
+            }
+            else
+            {
+                return RedirectToAction("NotFound");
+            }
+
         }
 
         public IActionResult NotFound() 

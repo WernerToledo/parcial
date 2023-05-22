@@ -4,13 +4,21 @@
 @{
 }
 
-<div class="container border border-dark-subtle rounded-4">
+@foreach (var item in (IEnumerable<dynamic>)ViewData["ListaTrabajos"])
+{
+    <div class="container border border-dark-subtle rounded-4 mt-4">
         <div class="row">
             <div class="col-3 col-lg-5">
                 <img src="..." class="img-fluid" alt="...">
             </div>
             <div class="col-9 col-lg-7">
-                Datos
+                <h1>Empresa: @item.nombre</h1>
+                <h2>Tipo de trabajo: @item.tipo_trabajo</h2>
+                <h2>Salario $@item.salario</h2>
+                <h2>Tipo de contrato: @item.tipo_contrato</h2>
+                <h2>Ubicacion: @item.ubicacion</h2>
             </div>
         </div>
-</div>
+    </div>
+}
+

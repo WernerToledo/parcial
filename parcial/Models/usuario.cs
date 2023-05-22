@@ -7,7 +7,7 @@ namespace parcial.Models
         public int id_usuario { get; set; }
         public String? nombre { get; set; }
         public String nombre_usuario { get; set; }
-        public String? empresa { get; set; }
+        public int empresa { get; set; }
         public String? direccion { get; set; }
         public String? telefono { get; set; }
         //LA FOTO ES VARBINARY 
