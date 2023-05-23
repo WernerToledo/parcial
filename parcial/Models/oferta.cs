@@ -11,5 +11,6 @@ namespace parcial.Models
         public String? tipo_contrato { get; set; }
         public String? ubicacion { get; set; }
         public int? id_empresa { get; set; }
+        public byte[]? foto { get; set; }
     }
 }

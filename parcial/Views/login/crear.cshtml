@@ -1,0 +1,56 @@
+﻿ @*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form asp-action="ingresar"> 
+    <h1>Ingresar usuario</h1>
+   
+    <div class="col-md-4">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" required>
+    </div>
+     <div class="col-md-4">
+        <label for="nombre_usuario" class="form-label">Nombre usuario</label>
+        <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required>
+    </div>
+    <div class="col-md-3">
+        <label for="empresa" class="form-label">State</label>
+        <select class="form-select" id="empresa" name="empresa" required>
+            <option selected disabled value="">Elija...</option>
+            <option value="1">Empresa</option>
+            <option value ="0">Usuario</option>
+        </select>
+        <div class="invalid-feedback">
+            Please select a valid state.
+        </div>
+    </div>
+
+
+    <div class="mb-3">
+        <label for="direccion" class="form-label">Dirección</label>
+        <textarea class="form-control" id="direccion" name="direccion" placeholder="Ingrese su dirección" required></textarea>
+    </div>
+
+    <div class="col-md-4">
+        <label for="telefono" class="form-label">Telefono</label>
+        <input type="text" class="form-control" id="telefono" name="telefono" required>
+    </div>
+
+    <div class="input-group mb-3">
+        <input type="file" name="foto" accept="image/*"/>
+    </div>
+
+
+    <div class="col-md-4">
+        <label for="correo" class="form-label">Correo</label>
+        <input type="email" class="form-control" id="correo" name="correo" required>
+    </div>
+
+    <div class="col-md-4">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Submit form</button>
+</form>

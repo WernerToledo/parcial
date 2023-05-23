@@ -13,5 +13,8 @@ namespace parcial.Models
         //LA FOTO ES VARBINARY 
         public byte[]? foto { get; set; }
         public String? correo { get; set; }
+
+        public String? password { get; set; }
+
     }
 }
