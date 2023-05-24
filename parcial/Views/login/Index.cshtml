@@ -7,7 +7,7 @@
 
 <form asp-action="sesion">
     
-    @if (ViewData["usuario"] == null)
+    @if (TempData["mensaje"] == null)
     {
         <div class="form-floating mb-3">
             <input type="text" class="form-control" id="pUsuario" name="pUsuario" placeholder="Ingrese el nombre de usuario">
@@ -18,19 +18,18 @@
             <label for="pass">Password</label>
         </div>
     }
-    else if (!ViewData["usuario"].ToString().Equals("sin datos"))
+    else
     {
         <div class="form-floating mb-3">
-            <input type="text" class="form-control is-invalid" id="pUsuario" name="pUsuario" placeholder="Ingrese el nombre de usuario">
-            <label for="pUsuario">nombre de usuario invalido</label>
+            <input type="text" class="form-control is-invalid" id="pUsuario" name="pUsuario" placeholder="Nombre">
+            <label for="pUsuario">Nombre usuario invalido</label>
         </div>
+
         <div class="form-floating mb-3">
-            <input type="password" class="form-control is-invalid" id="pass" name="pass" placeholder="Password">
-            <label for="pass">Contraseña invalidad</label>
+        <input type="password" class="form-control is-invalid" id="pass" name="pass" placeholder="Password">
+        <label for="pass">Contraseña invalida</label>
         </div>
     }
-
-
     <a asp-action="crear">Reistrarse</a>
     <button type="submit" class="btn btn-success">Ingresar <i class="fa-solid fa-user"></i></button>
 </form>

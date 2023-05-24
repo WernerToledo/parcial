@@ -19,17 +19,29 @@ namespace parcial.Controllers
 
         public IActionResult sesion(String pUsuario, String pass)
         {
-            var usuario = (from us in _DBcontexto.usuario
-                                    where us.nombre_usuario.Equals(pUsuario) &&  us.password.Equals(pass) select us).ToList();
+            var DataUsuario = (from us in _DBcontexto.usuario
+                                    where us.nombre_usuario.Equals(pUsuario) &&  us.password.Equals(pass) && us.empresa == 0 
+                               select us).ToList();
 
-            if (usuario.Any())
+            var DataEmpresa = (from us in _DBcontexto.usuario
+                               where us.nombre_usuario.Equals(pUsuario) && us.password.Equals(pass) && us.empresa == 1
+                               select us).ToList();
+
+
+            if (DataUsuario.Any())
             {
-                ViewData["usuario"] = usuario;
+                ViewData["usuario"] = DataUsuario;
+                return RedirectToAction("index", "usuario");
+            }
+            else if(DataEmpresa.Any())
+            {
+                ViewData["usuario"] = DataEmpresa;
                 return RedirectToAction("index", "empresa");
             }
             else
             {
-                ViewData["usuario"] = "sin datos";
+                TempData["mensaje"] = "Datos incorrectos";
+                ViewData["usuario"] = "Datos incorrectos";
                 return RedirectToAction("index");
             }
 
