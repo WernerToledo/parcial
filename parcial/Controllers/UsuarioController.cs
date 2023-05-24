@@ -8,5 +8,20 @@ namespace parcial.Controllers
         {
             return View();
         }
+
+        public IActionResult crear_oferta()
+        {
+            return View();
+        }
+
+        public IActionResult oferta() 
+        { 
+            return View(); 
+        }
+
+        public IActionResult edit()
+        {
+            return View();
+        }
     }
 }

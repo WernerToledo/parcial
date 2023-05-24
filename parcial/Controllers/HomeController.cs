@@ -44,7 +44,7 @@ namespace parcial.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult empresa()
         {
             return View();
         }

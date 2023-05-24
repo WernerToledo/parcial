@@ -29,5 +29,10 @@ namespace parcial.Controllers
         {
             return View(); 
         }
+
+        public IActionResult edit()
+        {
+            return View();
+        }
     }
 }
