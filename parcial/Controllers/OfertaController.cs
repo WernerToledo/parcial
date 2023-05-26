@@ -34,7 +34,7 @@ namespace parcial.Controllers
             var listadoTrabajos = (from o in _ofertaContext.oferta
                                    join e in _ofertaContext.usuario
                                    on o.id_empresa equals e.id_usuario
-                                   where o.tipo_trabajo.Contains(nombre)
+                                   where o.tipo_trabajo.Contains(nombre) && o.estado == 1
                                    select new
                                    {
                                        o.tipo_trabajo,

@@ -5,54 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] parcial</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/parcial.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">parcial</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+            <div class="container">
+
+                <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+                        aria-controls="offcanvasWithBothOptions">
+                    <i class="fa-solid fa-sliders"></i>
+                </button>
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Logo</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                        aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Empresas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Oferta">Ofertas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Index">Usuario</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="recurso">Recursos</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search" asp-controller="oferta" asp-action="Buscar">
                         <input class="form-control me-2" type="text" placeholder="Buscar trabajo" aria-label="Search" name="nombre">
                         <button class="btn btn-outline-success" type="submit">Buscar</button>
                     </form>
-                    <a class="btn" href="@Url.Action("Index", "login")"><i class="fa-solid fa-user"></i> Ingresar</a>
-                    
+                    <a class="btn text-light" href="@Url.Action("Index", "login")"><i class="fa-solid fa-user"></i> Ingresar</a>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+   <!--Este es el offcanvas-->
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+         aria-labelledby="offcanvasWithBothOptionsLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Busqueda en base a parametros</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <p>Try scrolling the rest of the page to see this option in action.</p>
+        </div>
+    </div>
+
+    <div class="container-fluid p-0">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-
+    <footer class="border-top footer text-muted bg-dark pt-2">
         <div class="container">
- 
-            &copy; 2023 - parcial - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row text-center d-flex">
+                <div class="col-md-3">
+                    <h6 class="text-uppercase font-weight-bold text-light">
+                        <i class="fa-solid fa-users"></i> Usuarios: @ViewBag.ConteoUsuarios
+                    </h6>
+                </div>
+
+                <div class="col-md-3">
+                    <h6 class="text-uppercase font-weight-bold text-light">
+                        <i class="fa-solid fa-suitcase"></i> Empleos publicados: @ViewBag.conteoPublicacion
+                    </h6>
+                </div>
+
+                <div class="col-md-3">
+                    <h6 class="text-uppercase font-weight-bold text-light">
+                        <i class="fa-solid fa-building-circle-check"></i> Empresas: @ViewBag.ConteoEmpresa
+                    </h6>
+                </div>
+
+                <div class="col-md-3">
+                    <h6 class="text-uppercase font-weight-bold text-light">
+                        <i class="fa-solid fa-list-check"></i> Solicitudes: @ViewBag.conteoSolicitudes
+                    </h6>
+                </div>
+            </div>
+            <h6 class="text-center text-light">©CopyRight Grupo Laravel</h6>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -5,31 +5,56 @@
 }
 
 
-<form asp-action="sesion">
-    
-    @if (TempData["mensaje"] == null)
-    {
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="pUsuario" name="pUsuario" placeholder="Ingrese el nombre de usuario">
-            <label for="pUsuario">Ingrese el nombre de usuario</label>
-        </div>
-        <div class="form-floating">
-            <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
-            <label for="pass">Password</label>
-        </div>
-    }
-    else
-    {
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control is-invalid" id="pUsuario" name="pUsuario" placeholder="Nombre">
-            <label for="pUsuario">Nombre usuario invalido</label>
-        </div>
 
-        <div class="form-floating mb-3">
-        <input type="password" class="form-control is-invalid" id="pass" name="pass" placeholder="Password">
-        <label for="pass">Contraseña invalida</label>
+    <section class="vh-100 gradient-custom">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card bg-dark" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+
+                            <div class="mb-md-5 mt-md-4 pb-5">
+
+                                <h2 class="fw-bold mb-2 text-uppercase text-light">Inicio de sesión</h2>
+                                <form asp-action="sesion">
+                                    @if (TempData["mensaje"] == null)
+                                    {
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="pUsuario" name="pUsuario" placeholder="Ingrese el nombre de usuario">
+                                            <label for="pUsuario">Ingrese el nombre de usuario</label>
+                                        </div>
+                                        <div class="form-floating">
+                                            <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
+                                            <label for="pass">Password</label>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control is-invalid" id="pUsuario" name="pUsuario" placeholder="Nombre">
+                                            <label for="pUsuario">Nombre usuario invalido</label>
+                                        </div>
+
+                                        <div class="form-floating mb-3">
+                                        <input type="password" class="form-control is-invalid" id="pass" name="pass" placeholder="Password">
+                                        <label for="pass">Contraseña invalida</label>
+                                        </div>
+                                    }
+                                    <br/>
+                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Ingresar</button>
+                                </form>
+
+                            </div>
+
+                            <div>
+                                <p class="mb-0 text-light">No tienes una cuenta? 
+                                    <a asp-action="crear">Reistrarse</a>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    }
-    <a asp-action="crear">Reistrarse</a>
-    <button type="submit" class="btn btn-success">Ingresar <i class="fa-solid fa-user"></i></button>
-</form>
+    </section>

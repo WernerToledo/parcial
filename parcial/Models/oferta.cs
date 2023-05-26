@@ -12,5 +12,7 @@ namespace parcial.Models
         public String? ubicacion { get; set; }
         public int? id_empresa { get; set; }
         public byte[]? foto { get; set; }
+        public DateTime? fecha_publicacion { get; set; }
+        public int estado { get; set; }
     }
 }
