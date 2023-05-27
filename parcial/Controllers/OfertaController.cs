@@ -57,6 +57,11 @@ namespace parcial.Controllers
 
         }
 
+        public IActionResult BuscarParametro()
+        {
+            return View();
+        }
+
         public IActionResult NotFound() 
         {
             return View();
