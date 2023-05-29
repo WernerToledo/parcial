@@ -25,6 +25,7 @@ namespace parcial.Controllers
                                    where o.estado == 1
                                    select new
                                    {
+                                       o.id_empresa,
                                        o.tipo_trabajo,
                                        o.salario,
                                        o.experiencia,

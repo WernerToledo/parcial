@@ -3,3 +3,35 @@
 *@
 @{
 }
+<header>
+    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <div class="container">
+            <a class="navbar-brand" asp-controller="empresa" asp-action="Index">Logo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="empresa" asp-action="Index">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="empresa" asp-action="AggOfertas">Agregar ofertas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="empresa" asp-action="edit">Editar ofertas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="empresa" asp-action="tips">a</a>
+                    </li>
+                </ul>
+                <a class="btn text-light" href="@Url.Action("editEmpresa", "empresa")"><i class="fa-solid fa-user"></i> @ViewBag.nombre</a>
+            </div>
+        </div>
+    </nav>
+</header>
+<!--Contenido-->
+<!--Contenido-->
+<footer>
+</footer>

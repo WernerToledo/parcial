@@ -21,20 +21,36 @@ namespace parcial.Controllers
         {
             var DataUsuario = (from us in _DBcontexto.usuario
                                     where us.nombre_usuario.Equals(pUsuario) &&  us.password.Equals(pass) && us.empresa == 0 
-                               select us).ToList();
+                               select us).ToList().FirstOrDefault();
 
             var DataEmpresa = (from us in _DBcontexto.usuario
                                where us.nombre_usuario.Equals(pUsuario) && us.password.Equals(pass) && us.empresa == 1
-                               select us).ToList();
+                               select us).ToList().FirstOrDefault();
+
+            var id = (from us in _DBcontexto.usuario
+                        where us.nombre_usuario.Equals(pUsuario) && us.password.Equals(pass) && us.empresa == 0
+                        select new 
+                        { 
+                            us.id_usuario
+                        }).ToList().FirstOrDefault();
 
 
-            if (DataUsuario.Any())
+            if (DataUsuario != null && id != null)
             {
+                usuario oUsuario = DataUsuario;
+
+                HttpContext.Session.SetInt32("id_usuario", oUsuario.id_usuario);
+                HttpContext.Session.SetString("UsName", oUsuario.nombre_usuario);
+
                 ViewData["usuario"] = DataUsuario;
                 return RedirectToAction("index", "usuario");
             }
-            else if(DataEmpresa.Any())
+            else if(DataEmpresa != null)
             {
+                usuario oEmpresa = DataEmpresa;
+
+                HttpContext.Session.SetInt32("id_usuario", oEmpresa.id_usuario);
+                HttpContext.Session.SetString("UsName", oEmpresa.nombre_usuario);
                 ViewData["usuario"] = DataEmpresa;
                 return RedirectToAction("index", "empresa");
             }

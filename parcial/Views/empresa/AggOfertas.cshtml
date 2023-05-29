@@ -3,6 +3,7 @@
 *@
 @{
 }
+
 <header>
     <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
         <div class="container">
@@ -22,6 +23,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-light" asp-area="" asp-controller="empresa" asp-action="edit">Editar ofertas</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="empresa" asp-action="tips">a</a>
+                    </li>
                 </ul>
                 <a class="btn text-light" href="@Url.Action("editEmpresa", "empresa")"><i class="fa-solid fa-user"></i> @ViewBag.nombre</a>
             </div>
@@ -29,7 +33,35 @@
     </nav>
 </header>
 <!--Contenido-->
+<!--para agg la oferta-->
+<form asp-action="ingresar">
+    <h1>Ingresar oferta</h1>
+
+    <div class="col-md-4">
+        <label for="tipo_trabajo" class="form-label">tipo_trabajo</label>
+        <input type="text" class="form-control" id="tipo_trabajo" name="tipo_trabajo" required>
+    </div>
+    <div class="col-md-4">
+        <label for="experiencia" class="form-label">Experiencia</label>
+        <input type="text" class="form-control" id="experiencia" name="experiencia" required>
+    </div>
+    <div class="col-md-4">
+        <label for="salario" class="form-label">Salario</label>
+        <input type="text" class="form-control" id="salario" name="salario" required>
+    </div>
+    <div class="col-md-4">
+        <label for="tipo_contrato" class="form-label">Tipo de contrato</label>
+        <input type="text" class="form-control" id="tipo_contrato" name="tipo_contrato" required>
+    </div>
+    <div class="col-md-4">
+        <label for="ubicacion" class="form-label">Ubicacion</label>
+        <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
+    </div>
+    <div class="input-group mb-3">
+        <input type="file" name="foto" accept="image/*" />
+    </div>
+    <button class="btn btn-primary" type="submit">Submit form</button>
+</form>
 <!--Contenido-->
 <footer>
 </footer>
-
