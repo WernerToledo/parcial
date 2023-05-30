@@ -16,5 +16,11 @@ namespace parcial.Models
 
         public String? password { get; set; }
 
+        public String tecnologias { get; set; }
+        public String titulos { get; set; }
+        public String trabajos { get; set; }
+        public String cursos { get; set; }
+        public String habilidades { get; set; }
+        public String aptitudes { get; set; }
     }
 }

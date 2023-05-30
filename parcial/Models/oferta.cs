@@ -14,5 +14,11 @@ namespace parcial.Models
         public byte[]? foto { get; set; }
         public DateTime? fecha_publicacion { get; set; }
         public int estado { get; set; }
+
+        public String? requisitos { get; set; }
+        public String? habilidades { get; set; }
+        public String? rango_edad { get; set; }
+        public String? nivel_academico { get; set; }
+
     }
 }
