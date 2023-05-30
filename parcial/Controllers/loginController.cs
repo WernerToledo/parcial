@@ -67,6 +67,8 @@ namespace parcial.Controllers
             return View();
         }
 
+        //se ingresa de esta manera se debe llamar a otro metedo que haga esa accion y recibir los datos del 
+        //formulario
         [HttpPost]
         public IActionResult ingresar(usuario pUsuario)
         {
