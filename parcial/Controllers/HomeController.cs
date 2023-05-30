@@ -63,6 +63,7 @@ namespace parcial.Controllers
                                      on o.id_empresa equals e.id_usuario
                                      where e.empresa == 0
                                      select o).ToList();
+
             ViewBag.ConteoUsuarios = ConteoUsuarios.ToList().Count();
             ViewBag.ConteoEmpresa = ConteoEmpresa.ToList().Count();
             ViewBag.conteoPublicacion = conteoPublicacion.ToList().Count();

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
+using Microsoft.VisualBasic;
+using System.ComponentModel.DataAnnotations;
 namespace parcial.Models
 {
     public class oferta
@@ -13,7 +15,8 @@ namespace parcial.Models
         public int? id_empresa { get; set; }
         public byte[]? foto { get; set; }
         public DateTime? fecha_publicacion { get; set; }
-        public int estado { get; set; }
+        public DateTime? fecha_contratacion { get; set; }
+        public int? estado { get; set; }
 
         public String? requisitos { get; set; }
         public String? habilidades { get; set; }

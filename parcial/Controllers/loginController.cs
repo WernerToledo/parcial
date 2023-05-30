@@ -64,14 +64,13 @@ namespace parcial.Controllers
         }
         public IActionResult crear()
         {
-
             return View();
         }
 
         [HttpPost]
-        public IActionResult ingresar([Bind("nombre, nombre_usuario, empresa, direccion, telefono, foto, correo, password")]usuario pUsuario)
+        public IActionResult ingresar(usuario pUsuario)
         {
-            
+            usuario a = pUsuario;
             return RedirectToAction("crear");
         }
     }
