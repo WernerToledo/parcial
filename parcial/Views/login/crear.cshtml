@@ -4,13 +4,14 @@
 @{
 }
 <form asp-action="ingresar"> 
-    <h1>Ingresar usuario</h1>
+   @* <h1>Ingresar usuario</h1>
    
-    <div class="col-md-4">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="nombre" name="nombre" required>
-    </div>
-     <div class="col-md-4">
+        <div class="col-sd-4">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" required>
+        </div>
+
+     <div class="col-sd-4">
         <label for="nombre_usuario" class="form-label">Nombre usuario</label>
         <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required>
     </div>
@@ -51,5 +52,67 @@
         <input type="password" class="form-control" id="password" name="password" required>
     </div>
 
-    <button class="btn btn-primary" type="submit">Submit form</button>
+    <button class="btn btn-primary" type="submit">Submit form</button>*@
+    <div class="container">
+        <h1>Pagina de registro</h1>
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="nombre" class="form-label">Nombre Completo</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+            <div class="col-sm-6">
+                <label for="nombre_usuario" class="form-label">Nombre usuario</label>
+                <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="empresa" class="form-label">Tipo de usuario</label>
+                <select class="form-select" id="empresa" name="empresa" required>
+                    <option selected disabled value="">Elija...</option>
+                    <option value="1">Empresa</option>
+                    <option value="0">Usuario</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a valid state.
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <label for="direccion" class="form-label">Dirección</label>
+                <textarea class="form-control" id="direccion" name="direccion" placeholder="Ingrese su dirección" required></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <label for="telefono" class="form-label">Telefono</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" required>
+            </div>
+            <div class="col-sm-6">
+                <label for="correo" class="form-label">Correo</label>
+                <input type="email" class="form-control" id="correo" name="correo" required>
+            </div>
+            <div class="col-sm-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+        </div>
+
+        <div>
+            <div class="row">
+            </div>
+        </div>
+        <div class="row">
+            <div class="b-2 col-md-5">
+                <div class="input-group mb-4">
+                    <label for="fotografia" class="form-label">Suba su fotografía</label>
+                    <input type="file" name="foto" accept="image/*" />
+                </div>
+
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Registrar</button>
+    </div>
 </form>
