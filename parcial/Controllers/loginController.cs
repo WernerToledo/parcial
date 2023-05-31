@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Firebase.Auth;
+using Firebase.Storage;
+using Microsoft.AspNetCore.Mvc;
 using parcial.Models;
 
 namespace parcial.Controllers
@@ -70,9 +72,49 @@ namespace parcial.Controllers
         //se ingresa de esta manera se debe llamar a otro metedo que haga esa accion y recibir los datos del 
         //formulario
         [HttpPost]
-        public IActionResult ingresar(usuario pUsuario)
+        public async Task<IActionResult> ingresar(usuario pUsuario, IFormFile foto)
         {
-            usuario a = pUsuario;
+            usuario ousuario;
+            //agregar la imagen
+            //leer el archivo
+
+            if (foto != null) 
+            {
+                Stream archivoASubir = foto.OpenReadStream();
+
+                String email = "parcial@maill.com";
+                String clave = "123456";
+                String ruta = "parcial-54edf.appspot.com";
+                String api_key = "AIzaSyCFOvWjgguo11serR_6qfI9jRzaOicdsTQ";
+
+                var auth = new FirebaseAuthProvider(new FirebaseConfig(api_key));
+                var autenticarFireBase = await auth.SignInWithEmailAndPasswordAsync(email, clave);
+
+                var cancellation = new CancellationTokenSource();
+                var tokenUser = autenticarFireBase.FirebaseToken;
+
+                var tareaCargarArchivo = new FirebaseStorage(ruta, new FirebaseStorageOptions
+                {
+                    AuthTokenAsyncFactory = () => Task.FromResult(tokenUser),
+                    ThrowOnCancel = true
+                }
+                                                            ).Child("fotos")
+                                                            .Child(foto.FileName)
+                                                            .PutAsync(archivoASubir, cancellation.Token);
+                var urlArchivo = await tareaCargarArchivo;
+
+                ViewBag.foto = urlArchivo;
+                ousuario = pUsuario;
+                ousuario.foto = urlArchivo;
+                //agregar la imagen
+
+            }
+            else
+            {
+                ousuario= pUsuario;
+            }
+            _DBcontexto.usuario.Add(ousuario);
+            _DBcontexto.SaveChanges();
             return RedirectToAction("crear");
         }
     }

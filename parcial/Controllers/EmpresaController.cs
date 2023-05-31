@@ -23,6 +23,11 @@ namespace parcial.Controllers
         {
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
+
+            oferta oOferta = poferta;
+
+            oOferta.fecha_contratacion = DateTime.Now;
+
             return RedirectToAction("index");        
         }
         public IActionResult AggOfertas() 
@@ -40,6 +45,12 @@ namespace parcial.Controllers
         }
         
         public IActionResult editEmpresa() 
+        {
+            var id = HttpContext.Session.GetInt32("id_usuario");
+            ViewBag.nombre = HttpContext.Session.GetString("UsName");
+            return View();
+        }
+        public IActionResult vUsuario() 
         {
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");

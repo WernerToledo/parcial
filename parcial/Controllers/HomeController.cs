@@ -32,7 +32,8 @@ namespace parcial.Controllers
                                        o.tipo_contrato,
                                        o.ubicacion,
                                        e.nombre,
-                                       o.fecha_publicacion
+                                       o.fecha_publicacion,
+                                       o.foto
                                    }).ToList();
             if (listadoTrabajos.Any())
             {
