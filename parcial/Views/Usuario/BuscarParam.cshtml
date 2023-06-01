@@ -3,3 +3,146 @@
 *@
 @{
 }
+
+<header>
+    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <div class="container">
+            <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+                    aria-controls="offcanvasWithBothOptions">
+                <i class="fa-solid fa-sliders"></i>
+            </button>
+            <a class="navbar-brand" asp-controller="Usuario" asp-action="Index">Logo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Usuario" asp-action="Index">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Usuario" asp-action="Oferta">Ofertas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Usuario" asp-action="tips">Recursos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Usuario" asp-action="vEmpresas">Empresas</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search" asp-action="Buscar">
+                    <input class="form-control me-2" type="text" placeholder="Buscar trabajo" aria-label="Search" name="nombre">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+                <a class="btn text-light" href="@Url.Action("editUsuario", "usuario")"><i class="fa-solid fa-user"></i> @ViewBag.nombre</a>
+            </div>
+        </div>
+    </nav>
+</header>
+<!--offcanvas-->
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+     aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Busqueda en base a parametros</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form asp-controller="oferta" asp-action="BuscarParametro">
+            <h6>Experiencia</h6>
+            <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
+                <input type="radio" class="btn-check" name="experiencia" id="vbtn-radioE1" autocomplete="off" value="1" checked>
+                <label class="btn btn-outline-danger" for="vbtn-radioE1">Sin experiencia</label>
+
+                <input type="radio" class="btn-check" name="experiencia" id="vbtn-radio2E" autocomplete="off" value="2">
+                <label class="btn btn-outline-danger" for="vbtn-radio2E">1 año a más</label>
+            </div>
+
+            <h6>Salario</h6>
+            <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
+                <input type="radio" class="btn-check" name="salario" id="vbtn-radio1" autocomplete="off" value="1" checked>
+                <label class="btn btn-outline-danger" for="vbtn-radio1">$500</label>
+
+                <input type="radio" class="btn-check" name="salario" id="vbtn-radio2" autocomplete="off" value="2">
+                <label class="btn btn-outline-danger" for="vbtn-radio2">$700</label>
+
+                <input type="radio" class="btn-check" name="salario" id="vbtn-radio3" autocomplete="off" value="3">
+                <label class="btn btn-outline-danger" for="vbtn-radio3">$1000 y más</label>
+            </div>
+            <br />
+            <button class="btn btn-outline-success mt-3" type="submit">Buscar</button>
+        </form>
+    </div>
+</div>
+<!--offcanvas-->
+<!--Contenido-->
+@if (ViewData["ListaTrabajos"] != null)
+{
+    @foreach (var item in (IEnumerable<dynamic>)ViewData["ListaTrabajos"])
+    {
+        <section id="datos" class="datos">
+            <div class="container mt-5 mb-3">
+                <div class="card">
+                    <h3 class="card-header">Empresa: @item.nombre</h3>
+                    <div class="row">
+                        <div class="col-lg-4" data-aos="fade-right">
+                            @if (item.foto != null)
+                            {
+                                <img src="@item.foto" class="img-fliud" alt="Imagen de la empresa" style="width: 150px; height: 150px;" />
+                            }
+                            else
+                            {
+                                <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor"
+                                     class="bi bi-person-square" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z" />
+                                </svg>
+                            }
+                        </div>
+                        <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
+                            <h3>Nombre de la empresa: @item.nombre</h3>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <ul>
+                                        <li>
+                                            <h4>Tipo de trabajo: @item.tipo_trabajo</h4>
+                                        </li>
+                                        <li>
+                                            <h4>Ubicacion: @item.ubicacion</h4>
+                                        </li>
+
+                                        <li>
+                                            <h4>Salario $@item.salario</h4>
+                                        </li>
+                                        <li>
+                                            <h4>Tipo de contrato: @item.tipo_contrato</h4>
+                                        </li>
+                                        <li>
+                                            <h4>Fecha de publicacion: @item.fecha_publicacion</h4>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="pt-2 mb-2 col sm-2 text-center">
+                                <a type="button" class="btn btn-primary" asp-controller="login" asp-action="Index">Ver detalles</a>
+                            </div>
+
+
+                        </div>
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+}
+else
+{
+    <h1 class="text-center">No se encontraron publicaciones</h1>
+}
