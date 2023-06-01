@@ -3,7 +3,12 @@
 *@
 @{
 }
-<form asp-action="ingresar"> 
+@if (ViewBag.foto != null)
+{
+    <img src="@ViewBag.foto" />
+
+}
+<form asp-action="ingresar" method="post" enctype="multipart/form-data"> 
    @* <h1>Ingresar usuario</h1>
    
         <div class="col-sd-4">
@@ -53,7 +58,7 @@
     </div>
 
     <button class="btn btn-primary" type="submit">Submit form</button>*@
-    <div class="container">
+   <div class="container">
         <h1>Pagina de registro</h1>
         <div class="row">
             <div class="col-sm-6">
@@ -107,8 +112,8 @@
         <div class="row">
             <div class="b-2 col-md-5">
                 <div class="input-group mb-4">
-                    <label for="fotografia" class="form-label">Suba su fotografía</label>
-                    <input type="file" name="foto" accept="image/*" />
+                    <label for="foto">Seleccione el archivo a cargar</label>
+                    <input type="file" class="form-control" id="foto" name="foto"/>
                 </div>
 
             </div>

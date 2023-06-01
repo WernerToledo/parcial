@@ -42,7 +42,8 @@ namespace parcial.Controllers
                                        o.experiencia,
                                        o.tipo_contrato,
                                        o.ubicacion,
-                                       e.nombre
+                                       e.nombre,
+                                       o.foto
                                    }).ToList();
 
             if (listadoTrabajos.Any())

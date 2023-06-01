@@ -26,6 +26,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-light" asp-area="" asp-controller="Usuario" asp-action="tips">Recursos</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Usuario" asp-action="vEmpresas">Empresas</a>
+                    </li>
                 </ul>
                 <form class="d-flex" role="search" asp-action="Buscar">
                     <input class="form-control me-2" type="text" placeholder="Buscar trabajo" aria-label="Search" name="nombre">
@@ -101,90 +104,86 @@
 
     </div>
 
-    <section id="datos" class="pt-5">
-        <div class="card border-primary pt-2 mb-4 ">
-            <div class="row m-2">
-                <h3>Información obligatoria</h3>
-                <div class="col-sm-6">
-                    <label for="nombre" class="form-label">Igresar Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" required>
-                </div>
+    <form>
+        <section id="datos" class="pt-5">
+            <div class="card border-primary pt-2 mb-4 ">
+                <div class="row m-2">
+                    <h3>Información obligatoria</h3>
+                    <div class="col-sm-6">
+                        <label for="nombre" class="form-label">Igresar Nombre</label>
+                        <input type="text" class="form-control" id="nombreN" name="nombreN">
+                    </div>
 
-                <div class="col-sm-6 mb-3">
-                    <label for="nombre_usuario" class="form-label">Nuevo nombre usuario</label>
-                    <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required>
-                </div>
+                    <div class="col-sm-6 mb-3">
+                        <label for="nombre_usuario" class="form-label">Nuevo nombre usuario</label>
+                        <input type="text" class="form-control" id="nombre_usuarioN" name="nombre_usuarioN">
+                    </div>
 
-                <div class="col-sm-6 mb-3">
-                    <label for="direccion" class="form-label">Dirección</label>
-                    <textarea class="form-control" id="direccion" name="direccion"
-                              placeholder="Ingrese su dirección" required></textarea>
-                </div>
+                    <div class="col-sm-6 mb-3">
+                        <label for="direccion" class="form-label">Dirección</label>
+                        <textarea class="form-control" id="direccionN" name="direccionN"
+                                  placeholder="Ingrese su dirección"></textarea>
+                    </div>
 
-                <div class="col-sm-6 ">
-                    <label for="telefono" class="form-label">Telefono</label>
-                    <input type="text" class="form-control" id="telefono" name="telefono" required>
-                </div>
+                    <div class="col-sm-6 ">
+                        <label for="telefono" class="form-label">Telefono</label>
+                        <input type="text" class="form-control" id="telefonoN" name="telefonoN">
+                    </div>
 
-                <div class="col-sm-4">
-                    <label for="correo" class="form-label">Correo</label>
-                    <input type="email" class="form-control" id="correo" name="correo" required>
-                </div>
+                    <div class="col-sm-4">
+                        <label for="correo" class="form-label">Correo</label>
+                        <input type="email" class="form-control" id="correo" name="correo">
+                    </div>
 
-                <div class="col-sm-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                </div>
+                    <div class="col-sm-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
 
-                <div class="b-2 col-md-5">
-                    <div class="input-group mb-3">
-                        <label for="fotografia" class="form-label">Suba su fotografía</label>
-                        <input type="file" name="foto" accept="image/*" />
+                    <div class="b-2 col-md-5">
+                        <div class="input-group mb-3">
+                            <label for="fotografia" class="form-label">Suba su fotografía</label>
+                            <input type="file" name="foto" accept="image/*" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="card border-primary pt-2 mb-4 ">
+                <div class="row m-2">
+                    <h3>Agrega información complementaria.</h3>
+                    <div class="col-sm-6">
+                        <label for="direccion" class="form-label">Habilidades</label>
+                        <textarea class="form-control" id="habilidades" name="habilidades" placeholder="Describa sus habilidades"></textarea>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="direccion" class="form-label">aptitudes</label>
+                        <textarea class="form-control" id="aptitudes" name="aptitudes" placeholder="Describa sus habilidades"></textarea>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="direccion" class="form-label">Tecnologías utilzadas</label>
+                        <textarea class="form-control" id="tecnologias" name="tecnologias" placeholder="Ingrese sus tecnologías"></textarea>
+                    </div>
+                    <div class="col-sm-6 mb-3">
+                        <label for="direccion" class="form-label">Titulos reconocidos</label>
+                        <textarea class="form-control" id="titulos" name="titulos" placeholder="Ingrese sus reconocimientos"></textarea>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="direccion" class="form-label">Historial de trabajos</label>
+                        <textarea class="form-control" id="trabajos" name="trabajos" placeholder="Nombre sus trabajos anteriores"></textarea>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="direccion" class="form-label">Historial de cursos</label>
+                        <textarea class="form-control" id="cursos" name="cursos" placeholder="Nombre sus cursos vigentes"></textarea>
                     </div>
                 </div>
-
             </div>
-        </div>
-    </section>
-
-    <section>
-        <div class="card border-primary pt-2 mb-4 ">
-            <div class="row m-2">
-                <h3>Agrega información complementaria.</h3>
-                <div class="col-sm-6">
-                    <label for="direccion" class="form-label">Habilidades</label>
-                    <textarea class="form-control" id="habilidades" name="habilidades" placeholder="Describa sus habilidades" required></textarea>
-                </div>
-                <div class="col-sm-6">
-                    <label for="direccion" class="form-label">aptitudes</label>
-                    <textarea class="form-control" id="aptitudes" name="aptitudes" placeholder="Describa sus habilidades" required></textarea>
-                </div>
-                <div class="col-sm-6">
-                    <label for="direccion" class="form-label">Tecnologías utilzadas</label>
-                    <textarea class="form-control" id="tecnologias" name="tecnologias" placeholder="Ingrese sus tecnologías" required></textarea>
-                </div>
-                <div class="col-sm-6 mb-3">
-                    <label for="direccion" class="form-label">Titulos reconocidos</label>
-                    <textarea class="form-control" id="titulos" name="titulos" placeholder="Ingrese sus reconocimientos" required></textarea>
-                </div>
-                <div class="col-sm-6">
-                    <label for="direccion" class="form-label">Historial de trabajos</label>
-                    <textarea class="form-control" id="trabajos" name="trabajos" placeholder="Nombre sus trabajos anteriores" required></textarea>
-                </div>
-                <div class="col-sm-6">
-                    <label for="direccion" class="form-label">Historial de cursos</label>
-                    <textarea class="form-control" id="cursos" name="cursos" placeholder="Nombre sus cursos vigentes" required></textarea>
-                </div>
-            </div>
-
-
-
-        </div>
-    </section>
-
-
-
-
+        </section>
+        <p class="text-center"><button type="submit" class="btn btn-warning">Modificar</button></p>
+    </form>
 </div>
 <!--contenido-->
 <footer>

@@ -10,8 +10,7 @@ namespace parcial.Models
         public int? empresa { get; set; }
         public String? direccion { get; set; }
         public String? telefono { get; set; }
-        //LA FOTO ES VARBINARY 
-        public byte[]? foto { get; set; }
+        public String? foto { get; set; }
         public String? correo { get; set; }
 
         public String? password { get; set; }
