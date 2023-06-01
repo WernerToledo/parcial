@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Firebase.Auth;
+using Firebase.Storage;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using parcial.Models;
 
@@ -56,6 +58,7 @@ namespace parcial.Controllers
         public IActionResult editUsuario() 
         {
             var id = HttpContext.Session.GetInt32("id_usuario");
+            ViewBag.id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
 
             var usuario = (from us in _DBcontexto.usuario
@@ -64,21 +67,76 @@ namespace parcial.Controllers
             return View(usuario);
         }
 
-        public IActionResult editarUser(usuario pUsuario)
+        public async Task<IActionResult> editarUser(usuario pUsuario, IFormFile foto)
         {
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
 
             var lusuario = (from us in _DBcontexto.usuario
-                            where us.id_usuario == id
-                            select us).ToList().FirstOrDefault();
+                           where us.id_usuario == id
+                           select us).ToList().FirstOrDefault();
 
-            usuario oUsuario = lusuario;
-            oUsuario = pUsuario;
+            pUsuario.empresa = lusuario.empresa;
 
-            _DBcontexto.Entry(oUsuario).State = EntityState.Modified;
+            if (foto != null)
+            {
+                Stream archivoASubir = foto.OpenReadStream();
+
+                String email = "parcial@maill.com";
+                String clave = "123456";
+                String ruta = "parcial-54edf.appspot.com";
+                String api_key = "AIzaSyCFOvWjgguo11serR_6qfI9jRzaOicdsTQ";
+
+                var auth = new FirebaseAuthProvider(new FirebaseConfig(api_key));
+                var autenticarFireBase = await auth.SignInWithEmailAndPasswordAsync(email, clave);
+
+                var cancellation = new CancellationTokenSource();
+                var tokenUser = autenticarFireBase.FirebaseToken;
+
+                var tareaCargarArchivo = new FirebaseStorage(ruta, new FirebaseStorageOptions
+                {
+                    AuthTokenAsyncFactory = () => Task.FromResult(tokenUser),
+                    ThrowOnCancel = true
+                }
+                                                            ).Child("fotos")
+                                                            .Child(foto.FileName)
+                                                            .PutAsync(archivoASubir, cancellation.Token);
+                var urlArchivo = await tareaCargarArchivo;
+
+                if (pUsuario.password != null)
+                {
+                    pUsuario.foto = urlArchivo;
+                }
+                else
+                {
+                    pUsuario.password = lusuario.password;
+                    pUsuario.foto = urlArchivo;
+                }
+                //agregar la imagen
+            }
+            else
+            {
+                if (lusuario.foto != null)
+                {
+                    pUsuario.foto = lusuario.foto;
+                    if (pUsuario.password == null)
+                    {
+                        pUsuario.password = lusuario.password;
+                    }
+                }
+                else
+                {
+                    if (pUsuario.password == null)
+                    {
+                        pUsuario.password = lusuario.password;
+                    }
+                }
+            }
+            _DBcontexto.Entry(lusuario).State = EntityState.Detached;
+
+            _DBcontexto.Entry(pUsuario).State = EntityState.Modified;
             _DBcontexto.SaveChanges();
-            return View();
+            return RedirectToAction(nameof(editUsuario));
         }
         //vista y edicion del usuario
         public IActionResult BuscarParam() 
