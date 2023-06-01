@@ -57,7 +57,11 @@ namespace parcial.Controllers
         {
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
-            return View();
+
+            var usuario = (from us in _DBcontexto.usuario
+                            where us.id_usuario== id
+                            select us).ToList().FirstOrDefault();
+            return View(usuario);
         }
 
         public IActionResult editarUser(usuario pUsuario)
