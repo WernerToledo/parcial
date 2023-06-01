@@ -75,7 +75,6 @@
 </div>
 <!--offcanvas-->
 <!--contenido-->
-<!--from pendiente-->
 <div class="container">
     <h3 class="pt-4">Edita la información de tu perfil</h3>
 
@@ -103,31 +102,31 @@
         </div>
 
     </div>
-
-    <form>
+    <!--from pendiente-->
+    <form asp-controller="usuario" asp-action="editusuario">
         <section id="datos" class="pt-5">
             <div class="card border-primary pt-2 mb-4 ">
                 <div class="row m-2">
                     <h3>Información obligatoria</h3>
                     <div class="col-sm-6">
                         <label for="nombre" class="form-label">Igresar Nombre</label>
-                        <input type="text" class="form-control" id="nombreN" name="nombreN">
+                        <input type="text" class="form-control" id="nombre" name="nombre">
                     </div>
 
                     <div class="col-sm-6 mb-3">
                         <label for="nombre_usuario" class="form-label">Nuevo nombre usuario</label>
-                        <input type="text" class="form-control" id="nombre_usuarioN" name="nombre_usuarioN">
+                        <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario">
                     </div>
 
                     <div class="col-sm-6 mb-3">
                         <label for="direccion" class="form-label">Dirección</label>
-                        <textarea class="form-control" id="direccionN" name="direccionN"
+                        <textarea class="form-control" id="direccion" name="direccion"
                                   placeholder="Ingrese su dirección"></textarea>
                     </div>
 
                     <div class="col-sm-6 ">
                         <label for="telefono" class="form-label">Telefono</label>
-                        <input type="text" class="form-control" id="telefonoN" name="telefonoN">
+                        <input type="text" class="form-control" id="telefono" name="telefono">
                     </div>
 
                     <div class="col-sm-4">
