@@ -89,39 +89,7 @@
             @RenderBody()
         </main>
     </div>
-    @if (@ViewBag.nombre == null)
-    {
-        <footer class="border-top footer text-muted bg-dark pt-2">
-            <div class="container">
-            <div class="row text-center d-flex">
-                <div class="col-md-3">
-                    <h6 class="text-uppercase font-weight-bold text-light">
-                        <i class="fa-solid fa-users"></i> Usuarios: @ViewBag.ConteoUsuarios
-                    </h6>
-                </div>
-
-                <div class="col-md-3">
-                    <h6 class="text-uppercase font-weight-bold text-light">
-                        <i class="fa-solid fa-suitcase"></i> Empleos publicados: @ViewBag.conteoPublicacion
-                    </h6>
-                </div>
-
-                <div class="col-md-3">
-                    <h6 class="text-uppercase font-weight-bold text-light">
-                        <i class="fa-solid fa-building-circle-check"></i> Empresas: @ViewBag.ConteoEmpresa
-                    </h6>
-                </div>
-
-                <div class="col-md-3">
-                    <h6 class="text-uppercase font-weight-bold text-light">
-                        <i class="fa-solid fa-list-check"></i> Solicitudes: @ViewBag.conteoSolicitudes
-                    </h6>
-                    </div>
-                </div>
-                <h6 class="text-center text-light">©CopyRight Grupo #4</h6>
-            </div>
-        </footer>
-    }
+    
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

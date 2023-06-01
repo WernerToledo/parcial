@@ -60,6 +60,39 @@
         </button>
     </div>
     
+    @if (@ViewBag.nombre == null)
+        {
+                <div class="border-top footer text-muted bg-dark pt-2">
+                    <div class="container">
+                    <div class="row text-center d-flex">
+                        <div class="col-md-3">
+                            <h6 class="text-uppercase font-weight-bold text-light">
+                                <i class="fa-solid fa-users"></i> Usuarios: @ViewBag.ConteoUsuarios
+                            </h6>
+                        </div>
+
+                        <div class="col-md-3">
+                            <h6 class="text-uppercase font-weight-bold text-light">
+                                <i class="fa-solid fa-suitcase"></i> Empleos publicados: @ViewBag.conteoPublicacion
+                            </h6>
+                        </div>
+
+                        <div class="col-md-3">
+                            <h6 class="text-uppercase font-weight-bold text-light">
+                                <i class="fa-solid fa-building-circle-check"></i> Empresas: @ViewBag.ConteoEmpresa
+                            </h6>
+                        </div>
+
+                        <div class="col-md-3">
+                            <h6 class="text-uppercase font-weight-bold text-light">
+                                <i class="fa-solid fa-list-check"></i> Solicitudes: @ViewBag.conteoSolicitudes
+                            </h6>
+                            </div>
+                        </div>
+                        <h6 class="text-center text-light">©CopyRight Grupo #4</h6>
+                    </div>
+                </div>
+        }
     @if (ViewData["ListaTrabajos"] != null)
     {
         @foreach (var item in (IEnumerable<dynamic>)ViewData["ListaTrabajos"])
@@ -117,6 +150,37 @@
                 </div>
             </section>
         }
+        
+                 <section style="background-color: #ebebeb;">
+                <div class="container my-5 py-5 text-dark">
+                  <div class="row d-flex justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-6">
+                        <h3>Área de comentarios</h3>
+                      <div class="card">
+                        <div class="card-body p-4">
+                          <div class="d-flex flex-start w-100">
+                            <img class="rounded-circle shadow-1-strong me-3"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(21).webp" alt="avatar" width="65"
+                              height="65" />
+                            <div class="w-100">
+                              <h5>Name</h5>
+                              <p>Comentario 1</p>
+                              <div class="form-outline">
+                                <textarea class="form-control" id="textAreaExample" rows="4"></textarea>                                
+                              </div>
+                              <div class="d-flex justify-content-between mt-3">
+                                <label class="form-label" for="textAreaExample">¿Cuál es tu opinión?</label>
+                                <button type="button" class="btn btn-success">Comentar</button>    
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
     }
     else
     {
