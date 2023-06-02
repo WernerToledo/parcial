@@ -35,7 +35,7 @@ namespace parcial.Controllers
                                        o.fecha_publicacion,
                                        o.foto
                                    }).ToList()
-                                   .OrderBy(resultado => resultado.fecha_publicacion)
+                                   .OrderByDescending(resultado => resultado.fecha_publicacion)
                                    .Take(3);
             if (listadoTrabajos.Any())
             {
