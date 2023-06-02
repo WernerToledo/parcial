@@ -60,9 +60,176 @@ namespace parcial.Controllers
 
         }
 
-        public IActionResult BuscarParametro()
+        public IActionResult BuscarParametro(int experiencia, int salario)
         {
-            return View();
+            if (experiencia == 1 && salario ==1)
+            {
+                var listadoTrabajos = (from o in _ofertaContext.oferta
+                                       join e in _ofertaContext.usuario
+                                       on o.id_empresa equals e.id_usuario
+                                       where o.experiencia.ToUpper().Equals("sin experiencia") && o.salario <= 500 && o.estado == 1
+                                       select new
+                                       {
+                                           o.tipo_trabajo,
+                                           o.salario,
+                                           o.experiencia,
+                                           o.tipo_contrato,
+                                           o.ubicacion,
+                                           e.nombre,
+                                           o.fecha_publicacion,
+                                           o.foto
+                                       }).ToList();
+
+                if (listadoTrabajos.Any())
+                {
+                    ViewData["ListaTrabajos"] = listadoTrabajos;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("NotFound");
+                }
+            }
+            else if (experiencia == 1 && salario == 2)
+            {
+                var listadoTrabajos = (from o in _ofertaContext.oferta
+                                       join e in _ofertaContext.usuario
+                                       on o.id_empresa equals e.id_usuario
+                                       where o.experiencia.ToUpper().Equals("sin experiencia") && o.salario < 500 && o.salario <=700 && o.estado == 1
+                                       select new
+                                       {
+                                           o.tipo_trabajo,
+                                           o.salario,
+                                           o.experiencia,
+                                           o.tipo_contrato,
+                                           o.ubicacion,
+                                           e.nombre,
+                                           o.fecha_publicacion,
+                                           o.foto
+                                       }).ToList();
+
+                if (listadoTrabajos.Any())
+                {
+                    ViewData["ListaTrabajos"] = listadoTrabajos;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("NotFound");
+                }
+            }
+            else if (experiencia == 1 && salario == 3)
+            {
+                var listadoTrabajos = (from o in _ofertaContext.oferta
+                                       join e in _ofertaContext.usuario
+                                       on o.id_empresa equals e.id_usuario
+                                       where o.experiencia.ToUpper().Equals("sin experiencia") && o.salario > 700 && o.estado == 1
+                                       select new
+                                       {
+                                           o.tipo_trabajo,
+                                           o.salario,
+                                           o.experiencia,
+                                           o.tipo_contrato,
+                                           o.ubicacion,
+                                           e.nombre,
+                                           o.fecha_publicacion,
+                                           o.foto
+                                       }).ToList();
+
+                if (listadoTrabajos.Any())
+                {
+                    ViewData["ListaTrabajos"] = listadoTrabajos;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("NotFound");
+                }
+            }
+            else if(experiencia == 2 && salario == 1)
+            {
+                var listadoTrabajos = (from o in _ofertaContext.oferta
+                                       join e in _ofertaContext.usuario
+                                       on o.id_empresa equals e.id_usuario
+                                       where o.salario <= 500 && o.estado == 1 && !o.experiencia.ToUpper().Equals("sin experiencia")
+                                       select new
+                                       {
+                                           o.tipo_trabajo,
+                                           o.salario,
+                                           o.experiencia,
+                                           o.tipo_contrato,
+                                           o.ubicacion,
+                                           e.nombre,
+                                           o.fecha_publicacion,
+                                           o.foto
+                                       }).ToList();
+
+                if (listadoTrabajos.Any())
+                {
+                    ViewData["ListaTrabajos"] = listadoTrabajos;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("NotFound");
+                }
+            }
+            else if (experiencia == 2 && salario == 2)
+            {
+                var listadoTrabajos = (from o in _ofertaContext.oferta
+                                       join e in _ofertaContext.usuario
+                                       on o.id_empresa equals e.id_usuario
+                                       where o.salario < 500 && o.salario <= 700 && o.estado == 1  && !o.experiencia.ToUpper().Equals("sin experiencia")
+                                       select new
+                                       {
+                                           o.tipo_trabajo,
+                                           o.salario,
+                                           o.experiencia,
+                                           o.tipo_contrato,
+                                           o.ubicacion,
+                                           e.nombre,
+                                           o.fecha_publicacion,
+                                           o.foto
+                                       }).ToList();
+
+                if (listadoTrabajos.Any())
+                {
+                    ViewData["ListaTrabajos"] = listadoTrabajos;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("NotFound");
+                }
+            }
+            else
+            {
+                var listadoTrabajos = (from o in _ofertaContext.oferta
+                                       join e in _ofertaContext.usuario
+                                       on o.id_empresa equals e.id_usuario
+                                       where o.salario > 700 && o.estado == 1 && !o.experiencia.ToUpper().Equals("sin experiencia")
+                                       select new
+                                       {
+                                           o.tipo_trabajo,
+                                           o.salario,
+                                           o.experiencia,
+                                           o.tipo_contrato,
+                                           o.ubicacion,
+                                           e.nombre,
+                                           o.fecha_publicacion,
+                                           o.foto
+                                       }).ToList();
+
+                if (listadoTrabajos.Any())
+                {
+                    ViewData["ListaTrabajos"] = listadoTrabajos;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("NotFound");
+                }
+            }
         }
 
         public IActionResult NotFound() 
