@@ -78,48 +78,7 @@ namespace parcial.Controllers
         [HttpPost]
         public async Task<IActionResult> ingresar(oferta poferta, IFormFile foto)
         {
-            oferta ooferta;
-            //agregar la imagen
-            //leer el archivo
-
-            if (foto != null)
-            {
-                Stream archivoASubir = foto.OpenReadStream();
-
-                String email = "parcial@maill.com";
-                String clave = "123456";
-                String ruta = "parcial-54edf.appspot.com";
-                String api_key = "AIzaSyCFOvWjgguo11serR_6qfI9jRzaOicdsTQ";
-
-                var auth = new FirebaseAuthProvider(new FirebaseConfig(api_key));
-                var autenticarFireBase = await auth.SignInWithEmailAndPasswordAsync(email, clave);
-
-                var cancellation = new CancellationTokenSource();
-                var tokenUser = autenticarFireBase.FirebaseToken;
-
-                var tareaCargarArchivo = new FirebaseStorage(ruta, new FirebaseStorageOptions
-                {
-                    AuthTokenAsyncFactory = () => Task.FromResult(tokenUser),
-                    ThrowOnCancel = true
-                }
-                                                            ).Child("fotos")
-                                                            .Child(foto.FileName)
-                                                            .PutAsync(archivoASubir, cancellation.Token);
-                var urlArchivo = await tareaCargarArchivo;
-
-                ViewBag.foto = urlArchivo;
-                ooferta = poferta;
-                ooferta.foto = urlArchivo;
-                //agregar la imagen
-
-            }
-            else
-            {
-                ooferta = poferta;
-            }
-            _ofertaContext.oferta.Add(ooferta);
-            _ofertaContext.SaveChanges();
-            return RedirectToAction("crear");
+            return View();
         }
     }
 }
