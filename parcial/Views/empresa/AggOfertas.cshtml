@@ -4,6 +4,12 @@
 @{
 }
 
+@if (ViewBag.foto != null)
+{
+    <img src="@ViewBag.foto" />
+
+}
+
 <header>
     <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
         <div class="container">
@@ -34,7 +40,7 @@
 </header>
 <!--Contenido-->
 <!--para agg la oferta-->
-<form asp-action="ingresar">
+<form asp-action="ingresar" method="post" enctype="multipart/form-data">
     <h1>Ingresar oferta</h1>
 
     <div class="col-md-4">
@@ -65,3 +71,4 @@
 <!--Contenido-->
 <footer>
 </footer>
+ 
