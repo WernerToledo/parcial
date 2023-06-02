@@ -58,6 +58,7 @@ namespace parcial.Controllers
                 ViewBag.foto = urlArchivo;
                 ooferta = poferta;
                 ooferta.foto = urlArchivo;
+                ooferta.id_empresa = id;
                 //agregar la imagen
 
             }

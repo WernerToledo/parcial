@@ -63,9 +63,74 @@
         <label for="ubicacion" class="form-label">Ubicacion</label>
         <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
     </div>
-    <div class="input-group mb-3">
-        <input type="file" name="foto" accept="image/*" />
+    <div class="col-md-4">
+        <label for="foto" class="form-label">Ingrese foto de referencia de oferta</label>
+        <input type="file" name="foto" accept="image/*" class="form-control" />
     </div>
+    <div class="col-md-4">
+        <label for="fecha_publicacion" class="form-label">Fecha de publicación</label>
+        <input type="datetime-local" class="form-control" name="fecha_publicacion"/>
+    </div>
+    <div class="col-md-4">
+        <label for="fecha_contratacion" class="form-label">Fecha de contratación</label>
+        <input type="datetime-local" name="fecha_contratacion" class="form-control" />
+    </div>
+    <div class="col-md-4">
+        <fieldset>
+            <legend>Seleccione el estado del empleo:</legend>
+
+                <div>
+                    <input type="radio" id="activo" name="estado" value="1" checked>
+                    <label for="activo">Activo</label>
+                </div>
+
+                <div>
+                <input type="radio" id="inactivo" name="estado" value="0">
+                    <label for="inactivo">Inactivo</label>
+                </div>
+        </fieldset>
+    </div>
+     <br />
+    <div class="col-md-4">
+        <label for="tipo_trabajo" class="form-label">Requisitos</label>
+        <input type="text" class="form-control" id="requisitos" name="requisitos" required>
+    </div>
+    <div class="col-md-4">
+        <label for="tipo_trabajo" class="form-label">Habilidades</label>
+        <input type="text" class="form-control" id="habilidades" name="habilidades" required>
+    </div>
+    <div class="col-md-4">
+        <label for="tipo_trabajo" class="form-label">Rango de edad</label>
+        <input type="text" class="form-control" id="rango_edad" name="rango_edad" placeholder="Ejemplo: 21 a 50" required>
+    </div>
+    <div class="col-md-4">
+        <fieldset>
+            <legend>Seleccione el nivel académico requerido:</legend>
+
+                <div>
+                    <input type="radio" id="9" name="nivel_academico" value="9° grado" checked>
+                    <label for="nivel_academico">9° grado</label>
+               </div>
+
+                <div>
+                    <input type="radio" id="bach" name="nivel_academico" value="Bachillerato">
+                    <label for="Bachillerato">Bachiller Graduado</label>
+                </div>
+            <div>
+                <input type="radio" id="uni" name="nivel_academico" value="Graduado universitario">
+                <label for="Graduado universitario">Graduado universitario</label>
+            </div>
+            <div>
+                <input type="radio" id="egre" name="nivel_academico" value="Egresado - pendiente de graduación">
+                <label for="Bachillerato">Egresado - pendiente de graduación</label>
+            </div>
+            <div>
+                <input type="radio" id="otros" name="nivel_academico" value="Otros">
+                <label for="Otros">Otros</label>
+            </div>
+        </fieldset>
+    </div>
+
     <button class="btn btn-primary" type="submit">Submit form</button>
 </form>
 <!--Contenido-->
