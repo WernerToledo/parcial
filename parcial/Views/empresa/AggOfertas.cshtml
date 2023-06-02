@@ -63,5 +63,90 @@
     <button class="btn btn-primary" type="submit">Submit form</button>
 </form>
 <!--Contenido-->
+<div class="container">
+    <section id="contact" class="contact">
+        <div class="container">
+
+            <div class="row" data-aos="fade-in">
+
+                <div class="col-lg-5 d-flex align-items-stretch">
+                    <div class="info">
+                        <div class="address">
+                            <i class="bi ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="black" class="bi bi-briefcase-fill" viewBox="0 0 16 16">
+                                    <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5z" />
+                                    <path d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85v5.65z" />
+                                </svg>
+                            </i>
+                            <h2>Empresa</h2>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
+                    <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                        <h4>Ingresar oferta laboral</h4>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="name">Titulo del trabajo :</label>
+                                <input type="text" name="tipo_trabajo" class="form-control" id="tipo_trabajo" required>
+
+                                <div class="form-group">
+                                    <label for="name">Ubicacion :</label>
+                                    <input type="text" class="form-control" name="ubicacion" id="ubicacion" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Experiencia :</label>
+                                    <input type="text" class="form-control" name="experiencia" id="experiencia" required></input>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="name">Estado :</label>
+                                <input type="text" class="form-control" name="estado" id="estado" required>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="name">Salario :</label>
+                                <input type="text" class="form-control" name="salario" id="salario" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="name">tipo de contrato :</label>
+                                <input type="text" class="form-control" name="tipo_contrato" id="tipo_contrato" required>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="name">Rango de edad :</label>
+                                <input type="text" class="form-control" name="rango_edad" id="rango_edad" required>
+
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label for="name">Nivel academico :</label>
+                                <input type="text" class="form-control" name="nivel_academico" id="nivel_academico" required>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name">Requisitos :</label>
+                                <textarea class="form-control" name="requisitos" id="requisitos" rows="10" required></textarea>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Habilidades :</label>
+                            <textarea class="form-control" name="habilidades" id="habilidades" rows="10" required></textarea>
+                        </div>
+                        <br>
+                        <div class="text-center"><button class="bg-primary" style="color: aliceblue;">Agregar Oferta</button></div>
+                        <br>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+</div>
 <footer>
 </footer>
