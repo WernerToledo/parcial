@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Firebase.Auth;
+using Firebase.Storage;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using parcial.Models;
@@ -64,6 +66,17 @@ namespace parcial.Controllers
         }
 
         public IActionResult NotFound() 
+        {
+            return View();
+        }
+
+        public IActionResult crear()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ingresar(oferta poferta, IFormFile foto)
         {
             return View();
         }
