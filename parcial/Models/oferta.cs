@@ -15,7 +15,7 @@ namespace parcial.Models
         public int? id_empresa { get; set; }
         public String? foto { get; set; }
         public DateTime? fecha_publicacion { get; set; }
-        public DateTime? fecha_contratacion { get; set; }
+        public String? fecha_contratacion { get; set; }
         public int? estado { get; set; }
 
         public String? requisitos { get; set; }

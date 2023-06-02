@@ -18,6 +18,36 @@ namespace parcial.Controllers
             //este es el id para los crud solo se deber igualar en el modelo.
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
+
+            var listadoTrabajos = (from o in _DBcontexto.oferta
+                                   join e in _DBcontexto.usuario
+                                   on o.id_empresa equals e.id_usuario
+                                   where o.estado == 1
+                                   select new
+                                   {
+                                       o.id_empresa,
+                                       o.tipo_trabajo,
+                                       o.salario,
+                                       o.experiencia,
+                                       o.tipo_contrato,
+                                       o.ubicacion,
+                                       e.nombre,
+                                       o.fecha_publicacion,
+                                       o.foto
+                                   }).ToList()
+                                   .OrderByDescending(resultado => resultado.fecha_publicacion)
+                                   .Take(3);
+            if (listadoTrabajos.Any())
+            {
+                ViewData["ListaTrabajos"] = listadoTrabajos;
+            }
+            else
+            {
+                ViewData["ListaTrabajos"] = null;
+            }
+            var lComentario = (from c in _DBcontexto.comentario select c).ToList();
+
+            ViewData["lComentario"] = lComentario;
             return View();
         }
 
@@ -25,14 +55,40 @@ namespace parcial.Controllers
         {
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
+
+
             return View();
         }
 
-        public IActionResult oferta() 
+        public IActionResult oferta()
         {
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
-            return View(); 
+            var listadoTrabajos = (from o in _DBcontexto.oferta
+                                   join e in _DBcontexto.usuario
+                                   on o.id_empresa equals e.id_usuario
+                                   where o.estado == 1
+                                   select new
+                                   {
+                                       o.id_empresa,
+                                       o.tipo_trabajo,
+                                       o.salario,
+                                       o.experiencia,
+                                       o.tipo_contrato,
+                                       o.ubicacion,
+                                       e.nombre,
+                                       o.fecha_publicacion,
+                                       o.foto
+                                   }).ToList();
+            if (listadoTrabajos.Any())
+            {
+                ViewData["ListaTrabajos"] = listadoTrabajos;
+            }
+            else
+            {
+                ViewData["ListaTrabajos"] = null;
+            }
+            return View();
         }
 
         public IActionResult edit()
@@ -41,29 +97,53 @@ namespace parcial.Controllers
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
             return View();
         }
-        public IActionResult tips() 
+        public IActionResult tips()
         {
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
             return View();
         }
-        public IActionResult Buscar()
+        public IActionResult Buscar(string nombre)
         {
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
-            return View();
+
+            var listadoTrabajos = (from o in _DBcontexto.oferta
+                                   join e in _DBcontexto.usuario
+                                   on o.id_empresa equals e.id_usuario
+                                   where o.tipo_trabajo.Contains(nombre) && o.estado == 1
+                                   select new
+                                   {
+                                       o.tipo_trabajo,
+                                       o.salario,
+                                       o.experiencia,
+                                       o.tipo_contrato,
+                                       o.ubicacion,
+                                       e.nombre,
+                                       o.foto
+                                   }).ToList();
+
+            if (listadoTrabajos.Any())
+            {
+                ViewData["ListaTrabajos"] = listadoTrabajos;
+                return View(listadoTrabajos);
+            }
+            else
+            {
+                return RedirectToAction("NotFoundUS");
+            }
         }
 
         //vista y edicion del usuario
-        public IActionResult editUsuario() 
+        public IActionResult editUsuario()
         {
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
 
             var usuario = (from us in _DBcontexto.usuario
-                            where us.id_usuario== id
-                            select us).ToList().FirstOrDefault();
+                           where us.id_usuario == id
+                           select us).ToList().FirstOrDefault();
             return View(usuario);
         }
 
@@ -73,8 +153,8 @@ namespace parcial.Controllers
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
 
             var lusuario = (from us in _DBcontexto.usuario
-                           where us.id_usuario == id
-                           select us).ToList().FirstOrDefault();
+                            where us.id_usuario == id
+                            select us).ToList().FirstOrDefault();
 
             pUsuario.empresa = lusuario.empresa;
 
@@ -139,25 +219,212 @@ namespace parcial.Controllers
             return RedirectToAction(nameof(editUsuario));
         }
         //vista y edicion del usuario
-        public IActionResult BuscarParam() 
+        public IActionResult BuscarParam(int experiencia, int salario)
+        {
+            var id = HttpContext.Session.GetInt32("id_usuario");
+            ViewBag.nombre = HttpContext.Session.GetString("UsName");
+
+            if (experiencia == 1 && salario == 1)
+            {
+                var listadoTrabajos = (from o in _DBcontexto.oferta
+                                       join e in _DBcontexto.usuario
+                                       on o.id_empresa equals e.id_usuario
+                                       where o.experiencia.ToUpper().Equals("sin experiencia") && o.salario <= 500 && o.estado == 1
+                                       select new
+                                       {
+                                           o.tipo_trabajo,
+                                           o.salario,
+                                           o.experiencia,
+                                           o.tipo_contrato,
+                                           o.ubicacion,
+                                           e.nombre,
+                                           o.fecha_publicacion,
+                                           o.foto
+                                       }).ToList();
+
+                if (listadoTrabajos.Any())
+                {
+                    ViewData["ListaTrabajos"] = listadoTrabajos;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("NotFoundUS");
+                }
+            }
+            else if (experiencia == 1 && salario == 2)
+            {
+                var listadoTrabajos = (from o in _DBcontexto.oferta
+                                       join e in _DBcontexto.usuario
+                                       on o.id_empresa equals e.id_usuario
+                                       where o.experiencia.ToUpper().Equals("sin experiencia") && o.salario < 500 && o.salario <= 700 && o.estado == 1
+                                       select new
+                                       {
+                                           o.tipo_trabajo,
+                                           o.salario,
+                                           o.experiencia,
+                                           o.tipo_contrato,
+                                           o.ubicacion,
+                                           e.nombre,
+                                           o.fecha_publicacion,
+                                           o.foto
+                                       }).ToList();
+
+                if (listadoTrabajos.Any())
+                {
+                    ViewData["ListaTrabajos"] = listadoTrabajos;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("NotFoundUS");
+                }
+            }
+            else if (experiencia == 1 && salario == 3)
+            {
+                var listadoTrabajos = (from o in _DBcontexto.oferta
+                                       join e in _DBcontexto.usuario
+                                       on o.id_empresa equals e.id_usuario
+                                       where o.experiencia.ToUpper().Equals("sin experiencia") && o.salario > 700 && o.estado == 1
+                                       select new
+                                       {
+                                           o.tipo_trabajo,
+                                           o.salario,
+                                           o.experiencia,
+                                           o.tipo_contrato,
+                                           o.ubicacion,
+                                           e.nombre,
+                                           o.fecha_publicacion,
+                                           o.foto
+                                       }).ToList();
+
+                if (listadoTrabajos.Any())
+                {
+                    ViewData["ListaTrabajos"] = listadoTrabajos;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("NotFoundUS");
+                }
+            }
+            else if (experiencia == 2 && salario == 1)
+            {
+                var listadoTrabajos = (from o in _DBcontexto.oferta
+                                       join e in _DBcontexto.usuario
+                                       on o.id_empresa equals e.id_usuario
+                                       where o.salario <= 500 && o.estado == 1 && !o.experiencia.ToUpper().Equals("sin experiencia")
+                                       select new
+                                       {
+                                           o.tipo_trabajo,
+                                           o.salario,
+                                           o.experiencia,
+                                           o.tipo_contrato,
+                                           o.ubicacion,
+                                           e.nombre,
+                                           o.fecha_publicacion,
+                                           o.foto
+                                       }).ToList();
+
+                if (listadoTrabajos.Any())
+                {
+                    ViewData["ListaTrabajos"] = listadoTrabajos;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("NotFoundUS");
+                }
+            }
+            else if (experiencia == 2 && salario == 2)
+            {
+                var listadoTrabajos = (from o in _DBcontexto.oferta
+                                       join e in _DBcontexto.usuario
+                                       on o.id_empresa equals e.id_usuario
+                                       where o.salario < 500 && o.salario <= 700 && o.estado == 1 && !o.experiencia.ToUpper().Equals("sin experiencia")
+                                       select new
+                                       {
+                                           o.tipo_trabajo,
+                                           o.salario,
+                                           o.experiencia,
+                                           o.tipo_contrato,
+                                           o.ubicacion,
+                                           e.nombre,
+                                           o.fecha_publicacion,
+                                           o.foto
+                                       }).ToList();
+
+                if (listadoTrabajos.Any())
+                {
+                    ViewData["ListaTrabajos"] = listadoTrabajos;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("NotFoundUS");
+                }
+            }
+            else
+            {
+                var listadoTrabajos = (from o in _DBcontexto.oferta
+                                       join e in _DBcontexto.usuario
+                                       on o.id_empresa equals e.id_usuario
+                                       where o.salario > 700 && o.estado == 1 && !o.experiencia.ToUpper().Equals("sin experiencia")
+                                       select new
+                                       {
+                                           o.tipo_trabajo,
+                                           o.salario,
+                                           o.experiencia,
+                                           o.tipo_contrato,
+                                           o.ubicacion,
+                                           e.nombre,
+                                           o.fecha_publicacion,
+                                           o.foto
+                                       }).ToList();
+
+                if (listadoTrabajos.Any())
+                {
+                    ViewData["ListaTrabajos"] = listadoTrabajos;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("NotFoundUS");
+                }
+            }
+        }
+        public IActionResult Aplicar()
         {
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
             return View();
         }
-        public IActionResult Aplicar() 
-        {
-            var id = HttpContext.Session.GetInt32("id_usuario");
-            ViewBag.nombre = HttpContext.Session.GetString("UsName");
-            return View();
-        }
-        public IActionResult vEmpresas() 
+        public IActionResult vEmpresas()
         {
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
             return View();
         }
 
+        public IActionResult NotFoundUS()
+        {
+            return View();
+        }
+
+        public IActionResult det_empresa()
+        {
+            var id = HttpContext.Session.GetInt32("id_usuario");
+            ViewBag.nombre = HttpContext.Session.GetString("UsName");
+            return View();
+        }
+        public IActionResult AggComentarioUs(comentario pComentario)
+        {
+            var id = HttpContext.Session.GetInt32("id_usuario");
+            pComentario.id_usuario_null = id;
+            _DBcontexto.comentario.Add(pComentario);
+            _DBcontexto.SaveChanges();
+            return RedirectToAction("index");
+        }
 
 
     }

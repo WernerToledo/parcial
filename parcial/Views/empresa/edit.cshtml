@@ -32,37 +32,77 @@
     </nav>
 </header>
 <!--Contenido-->
-<div class="container pt-4">
-    <div class="card">
-        <h3 class="card-header">Oferta :</h3>
-        <div class="row">
-            <div class="col-3 col-lg-5">
-                <img src="..." class="img-fluid" alt="...">
-            </div>
-            <div class="col-9 col-lg-7 b-3">
-                <h4>Tipo de trabajo: </h4>
-                <h4>Salario $: </h4>
-                <h4>Tipo de contrato: </h4>
-                <h4>Ubicacion: </h4>
-            </div>
-            <div class="pt-2 mb-2 col sm-2 text-center">
-                <a href="#" class="btn btn-lg btn-primary">Ver detalles</a>
-            </div>
-            <div class="pt-2 mb-2 col sm-2 text-center">
-                <a href="#" class="btn btn-lg btn-success active">Activado</a>
-            </div>
 
-            <div class="pt-2 mb-2 col sm-2 text-center">
-                <a href="#" class="btn btn-lg btn-outline-danger">Desactivado</a>
+@if (ViewData["ofertas"] != null)
+{
+    @foreach (var item in (IEnumerable<dynamic>)ViewData["ofertas"])
+    {
+        <div class="container pt-4">
+            <div class="card">
+                <h3 class="card-header">Oferta: @item.tipo_trabajo</h3>
+                <div class="row">
+                    <div class="col-3 col-lg-5">
+                        <img src="..." class="img-fluid" alt="...">
+                    </div>
+                    <div class="col-9 col-lg-7 b-3">
+                        <h4>Salario $: @item.salario</h4>
+                        <h4>Tipo de contrato: @item.tipo_contrato</h4>
+                        <h4>Ubicacion: @item.ubicacion</h4>
+                    </div>
+                    <div class="pt-2 mb-2 col sm-2 text-center">
+                        <form asp-action="EditOferta">
+                            <input type="hidden" name="id_oferta" value="@item.id_oferta" />
+                            <button type="submit" class="btn btn-primary">Detalles</button>
+                        </form>
+                    </div>
+                    <div class="pt-2 mb-2 col sm-2 text-center">
+                        @if (item.estado == 1)
+                        {
+                            <form>
+                                <input type="hidden" name="id_oferta" value="@item.id_oferta" />
+                                <button type="button" class="btn btn-success">Activar</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-action="ActivarOferta">
+                                <input type="hidden" name="id_oferta" value="@item.id_oferta" />
+                                <button type="submit" class="btn btn-outline-success">Activar</button>
+                            </form>
+                        }
+
+                    </div>
+
+                    <div class="pt-2 mb-2 col sm-2 text-center">
+                        @if (item.estado == 0)
+                        {
+                            <form>
+                                <input type="hidden" name="id_oferta" value="@item.id_oferta" />
+                                <button type="button" class="btn btn-danger">Desactivar</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-action="DesactivarOferta">
+                                <input type="hidden" name="id_oferta" value="@item.id_oferta" />
+                                <button type="submit" class="btn btn-outline-danger">Desactivar</button>
+                            </form>
+                        }
+                    </div>
+
+                    <!-- boton desactivado
+                    <div class="pt-2 mb-2 col sm-2 text-center">
+                    <a href="#" class="btn btn-lg btn-danger disabled" >Desactivado</a>
+                    </div> !-->
+
+                </div>
             </div>
-
-            <!-- boton desactivado
-                <div class="pt-2 mb-2 col sm-2 text-center">
-                <a href="#" class="btn btn-lg btn-danger disabled" >Desactivado</a>
-            </div> !-->
-
         </div>
-    </div>
-</div>
+    }
+}
+else
+{
+    <h4>Aun no ha publicado ofertas</h4>
+}
 <footer>
 </footer>

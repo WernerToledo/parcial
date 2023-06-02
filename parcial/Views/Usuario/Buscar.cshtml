@@ -47,7 +47,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <form asp-controller="oferta" asp-action="BuscarParametro">
+        <form asp-action="BuscarParam">
             <h6>Experiencia</h6>
             <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
                 <input type="radio" class="btn-check" name="experiencia" id="vbtn-radioE1" autocomplete="off" value="1" checked>
@@ -75,6 +75,28 @@
 </div>
 <!--offcanvas-->
 <!--contenido-->
+@foreach (var item in (IEnumerable<dynamic>)ViewData["ListaTrabajos"])
+{
+    <div class="container pt-4" style="background-color: #ebebeb;">
+        <div class="card">
+            <h3 class="card-header">Empresa: @item.nombre</h3>
+            <div class="row">
+                <div class="col-3 col-lg-5">
+                    <img src="..." class="img-fluid" alt="...">
+                </div>
+                <div class="col-9 col-lg-7 b-3">
+                    <h4>Tipo de trabajo: @item.tipo_trabajo</h4>
+                    <h4>Salario: $@item.salario</h4>
+                    <h4>Tipo de contrato: @item.tipo_contrato</h4>
+                    <h4>Ubicacion: @item.ubicacion</h4>
+                </div>
+                <div class="pt-2 mb-2 col sm-2 text-center">
+                    <a class="btn btn-primary" asp-controller="home" asp-action="datos_oferta">Ver detalles</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 <!--contenido-->
 <footer>
 </footer>

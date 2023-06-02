@@ -50,7 +50,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <form asp-controller="oferta" asp-action="BuscarParametro">
+        <form asp-action="BuscarParam">
             <h6>Experiencia</h6>
             <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
                 <input type="radio" class="btn-check" name="experiencia" id="vbtn-radioE1" autocomplete="off" value="1" checked>
@@ -229,42 +229,67 @@
                 </div>
             </section>
         }
+    }
+    else
+    {
+        <h1 class="text-center">No se encontraron publicaciones</h1>
+    }
+    <section style="background-color: #ebebeb;">
+        <div class="container my-5 py-5 text-dark">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-6">
+                    <h3>Área de comentarios</h3>
+                    <div class="card">
+                        <div class="card-body p-4">
+                            <div class="d-flex flex-start w-100">
+                                <div class="container-fluid">
+                                    <div class="container-fluid">
+                                        @if (ViewData["lComentario"] != null)
+                                        {
+                                            @foreach (var item in (IEnumerable<dynamic>)ViewData["lComentario"])
+                                            {
+                                                <img class="rounded-circle shadow-1-strong me-3"
+                                             src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(21).webp" alt="avatar" width="65"
+                                             height="65" />
 
-        <section style="background-color: #ebebeb;">
-            <div class="container my-5 py-5 text-dark">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-6">
-                        <h3>Área de comentarios</h3>
-                        <div class="card">
-                            <div class="card-body p-4">
-                                <div class="d-flex flex-start w-100">
-                                    <img class="rounded-circle shadow-1-strong me-3"
-                                         src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(21).webp" alt="avatar" width="65"
-                                         height="65" />
-                                    <div class="w-100">
-                                        <h5>Name</h5>
-                                        <p>Comentario 1</p>
+                                                <div class="w-100">
+                                                    <h5>Usuario: @item.id_usuario_null</h5>
+                                                    <p>@item.Comentario</p>
+                                                    <hr>
+                                                </div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <img class="rounded-circle shadow-1-strong me-3"
+                                             src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(21).webp" alt="avatar" width="65"
+                                             height="65" />
+                                            <div class="w-100">
+                                                <h5>Name</h5>
+                                                <p>Sin comentarios</p>
+                                                <hr>
+                                            </div>
+                                        }
+
+                                    </div>
+                                    <form asp-action="AggComentarioUs">
                                         <div class="form-outline">
-                                            <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+                                            <textarea class="form-control" id="textAreaExample" name="Comentario" rows="4"></textarea>
                                         </div>
                                         <div class="d-flex justify-content-between mt-3">
                                             <label class="form-label" for="textAreaExample">¿Cuál es tu opinión?</label>
-                                            <button type="button" class="btn btn-success">Comentar</button>
+                                            <button type="submit" class="btn btn-success">Comentar</button>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-    }
-    else
-    {
-        <h1 class="text-center">No se encontraron publicaciones</h1>
-    }
 <!--contenido-->
 <footer>
 

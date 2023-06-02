@@ -1,6 +1,7 @@
 ﻿using Firebase.Auth;
 using Firebase.Storage;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using parcial.Models;
 
 namespace parcial.Controllers
@@ -18,6 +19,9 @@ namespace parcial.Controllers
             //este es el id para los crud solo se deber igualar en el modelo.
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
+            var lComentario = (from c in _DBcontexto.comentario select c).ToList();
+
+            ViewData["lComentario"] = lComentario;
             return View();
         }
 
@@ -59,12 +63,17 @@ namespace parcial.Controllers
                 ooferta = poferta;
                 ooferta.foto = urlArchivo;
                 ooferta.id_empresa = id;
+                ooferta.fecha_publicacion = DateTime.Now;
+                ooferta.estado = 1;
                 //agregar la imagen
 
             }
             else
             {
                 ooferta = poferta;
+                ooferta.id_empresa = id;
+                ooferta.fecha_publicacion = DateTime.Now;
+                ooferta.estado = 1;
             }
 
             _DBcontexto.oferta.Add(ooferta);
@@ -75,13 +84,34 @@ namespace parcial.Controllers
         {
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
-            return View(); 
+
+            var usuario = (from u in _DBcontexto.usuario
+                           where u.id_usuario == id
+                           select new{
+                                    u.nombre,
+                                    u.foto
+                                  }).ToList().FirstOrDefault();
+            return View(usuario); 
         }
 
         public IActionResult edit()
         {
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
+
+            var ofertas = (from o in _DBcontexto.oferta
+                           where o.id_empresa == id
+                           select o).ToList();
+
+            if (ofertas.ToList().Any())
+            {
+                ViewData["ofertas"] = ofertas;
+            }
+            else
+            {
+                ViewData["ofertas"] = null;
+            }
+
             return View();
         }
         
@@ -89,7 +119,11 @@ namespace parcial.Controllers
         {
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
-            return View();
+
+            var usuario = (from us in _DBcontexto.usuario
+                           where us.id_usuario == id
+                           select us).ToList().FirstOrDefault();
+            return View(usuario);
         }
         public IActionResult vUsuario() 
         {
@@ -97,5 +131,53 @@ namespace parcial.Controllers
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
             return View();
         }
+        public IActionResult ActivarOferta(int id_oferta)
+        {
+            var id = HttpContext.Session.GetInt32("id_usuario");
+            ViewBag.nombre = HttpContext.Session.GetString("UsName");
+
+            var oferta = (from o in _DBcontexto.oferta
+                          where o.id_oferta == id_oferta
+                           select o).ToList().FirstOrDefault();
+
+            oferta.estado = 1;
+
+            _DBcontexto.Entry(oferta).State = EntityState.Modified;
+            _DBcontexto.SaveChanges();
+            return RedirectToAction("edit");
+        }
+
+        public IActionResult DesactivarOferta(int id_oferta)
+        {
+            var id = HttpContext.Session.GetInt32("id_usuario");
+            ViewBag.nombre = HttpContext.Session.GetString("UsName");
+
+            var oferta = (from o in _DBcontexto.oferta
+                          where o.id_oferta == id_oferta
+                          select o).ToList().FirstOrDefault();
+
+            oferta.estado = 0;
+
+            _DBcontexto.Entry(oferta).State = EntityState.Modified;
+            _DBcontexto.SaveChanges();
+            return RedirectToAction("edit");
+        }
+        public IActionResult EditOferta()
+        {
+            var id = HttpContext.Session.GetInt32("id_usuario");
+            ViewBag.nombre = HttpContext.Session.GetString("UsName");
+
+            return View();
+        }
+
+        public IActionResult detUser() 
+        {
+            var id = HttpContext.Session.GetInt32("id_usuario");
+            ViewBag.nombre = HttpContext.Session.GetString("UsName");
+
+            return View();
+        }
+
+       
     }
 }

@@ -46,7 +46,10 @@
             </div>
 
             <div class="pt-2 mb-2 col sm-2 text-center">
-                <a type="button" class="btn btn-primary" asp-controller="login" asp-action="Index">Ver detalles</a>
+                <form asp-action="detUser">
+                    @*<input type="hidden" name="id_usuario" value="@Model.id_usuario"/>*@
+                    <button class="btn btn-primary">Detalle</button>
+                </form>
             </div>
 
         </div>

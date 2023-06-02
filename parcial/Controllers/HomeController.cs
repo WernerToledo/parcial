@@ -25,7 +25,7 @@ namespace parcial.Controllers
                                    where o.estado == 1
                                    select new
                                    {
-                                       o.id_empresa,
+                                       o.id_oferta,
                                        o.tipo_trabajo,
                                        o.salario,
                                        o.experiencia,
@@ -88,7 +88,7 @@ namespace parcial.Controllers
                                    where o.estado == 1
                                    select new
                                    {
-                                       o.id_empresa,
+                                       o.id_oferta,
                                        o.tipo_trabajo,
                                        o.salario,
                                        o.experiencia,
@@ -182,8 +182,30 @@ namespace parcial.Controllers
 
             return RedirectToAction("Index");
         }
-        public IActionResult datos_oferta()
+        public IActionResult datos_oferta(int id_oferta)
         {
+
+            var obOferta = (from o in _DBcontexto.oferta
+                          join e in _DBcontexto.usuario
+                          on o.id_empresa equals e.id_usuario
+                          where o.estado == 1 && o.id_oferta == id_oferta
+                          select new
+                          {
+                              o.id_oferta,
+                              o.tipo_trabajo,
+                              o.salario,
+                              o.experiencia,
+                              o.tipo_contrato,
+                              o.ubicacion,
+                              e.nombre,
+                              o.fecha_publicacion,
+                              o.foto,
+                              o.requisitos,
+                              o.habilidades,
+                              o.rango_edad,
+                              o.nivel_academico
+                          }).ToList();
+
             //variables de conteo
             var ConteoUsuarios = (from u in _DBcontexto.usuario
                                   where u.empresa == 0
@@ -209,6 +231,8 @@ namespace parcial.Controllers
             ViewBag.ConteoEmpresa = ConteoEmpresa.ToList().Count();
             ViewBag.conteoPublicacion = conteoPublicacion.ToList().Count();
             ViewBag.conteoSolicitudes = conteoSolicitudes.ToList().Count();
+
+            ViewData["oferta"] = obOferta;
             return View();
         }
     }
