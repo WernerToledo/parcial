@@ -36,11 +36,11 @@
 <h1>Se deben copiar y pegar el form que esta en "Aggoferta" </h1>
 <div class="container">
 
-@*@if (ViewBag.foto != null)
+@if (ViewBag.foto != null)
 {
     <img src="@ViewBag.foto" />
 
-}*@
+}
 <section id="contact" class="contact">
     <div class="container">
 
@@ -65,7 +65,7 @@
                             </i>
                         }
 
-                        <h2>@Model.nombre</h2>
+                        <h2></h2>
 
                     </div>
                 </div>
@@ -73,30 +73,31 @@
             </div>
 
             <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-                <form asp-action="ingresar" method="post" enctype="multipart/form-data">
-                    <h4>Ingresar oferta laboral</h4>
+                <form asp-action="modoferta" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id_oferta" value="@ViewBag.id" />
+                    <h4>Editar oferta laboral</h4>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="name">Plaza de trabajo :</label>
-                            <input type="text" name="tipo_trabajo" class="form-control" id="tipo_trabajo" required>
+                                <input type="text" name="tipo_trabajo" class="form-control" id="tipo_trabajo" value="@Model.tipo_trabajo" required>
 
                             <div class="form-group">
                                 <label for="name">Ubicacion :</label>
-                                <input type="text" class="form-control" name="ubicacion" id="ubicacion" required>
+                                    <input type="text" class="form-control" name="ubicacion" id="ubicacion" value="@Model.ubicacion" required>
                             </div>
                             <div class="form-group">
                                 <label for="name">Experiencia :</label>
-                                <input type="text" class="form-control" name="experiencia" id="experiencia" required></input>
+                                    <input type="text" class="form-control" name="experiencia" id="experiencia" required value="@Model.experiencia"></input>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
                             <div class="form-group">
                                 <label for="name">Salario :</label>
-                                <input type="text" class="form-control" name="salario" id="salario" required>
+                                    <input type="text" class="form-control" name="salario" id="salario" value="@Model.salario" required>
                             </div>
                             <div class="form-group">
                                 <label for="fecha_contratacion" class="form-label">Fecha de contratación</label>
-                                <input type="datetime-local" name="fecha_contratacion" class="form-control" />
+                                    <input type="datetime-local" name="fecha_contratacion" class="form-control" value="@Model.fecha_contratacion" />
                             </div>
                             <div class="input-group mb-4">
                                 <input type="file" class="form-control" id="foto" name="foto" />
@@ -104,34 +105,34 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="name">tipo de contrato :</label>
-                            <input type="text" class="form-control" name="tipo_contrato" id="tipo_contrato" required>
+                                <input type="text" class="form-control" name="tipo_contrato" id="tipo_contrato" value="@Model.tipo_contrato" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="name">Rango de edad :</label>
-                            <input type="text" class="form-control" name="rango_edad" id="rango_edad" required>
+                                <input type="text" class="form-control" name="rango_edad" id="rango_edad" value="@Model.rango_edad" required>
 
                         </div>
 
                         <div class="form-group col-md-3">
                             <label for="name">Nivel academico :</label>
-                            <input type="text" class="form-control" name="nivel_academico" id="nivel_academico" required>
+                                <input type="text" class="form-control" name="nivel_academico" id="nivel_academico" value="@Model.nivel_academico" required>
 
                         </div>
 
                         <div class="form-group">
                             <label for="name">Requisitos :</label>
-                            <textarea class="form-control" name="requisitos" id="requisitos" rows="10" required></textarea>
+                                <textarea class="form-control" name="requisitos" id="requisitos" rows="10" value="@Model.requisitos" required></textarea>
                         </div>
 
                     </div>
 
                     <div class="form-group">
                         <label for="name">Habilidades :</label>
-                        <textarea class="form-control" name="habilidades" id="habilidades" rows="10" required></textarea>
+                            <textarea class="form-control" name="habilidades" id="habilidades" rows="10" value="@Model.habilidades" required></textarea>
                     </div>
                     <br>
                     <p class="text-center">
-                        <button type="submit" class="btn btn-success">Crear oferta</button>
+                        <button type="submit" class="btn btn-success">Modificar oferta</button>
                     </p>
                     <br>
                 </form>

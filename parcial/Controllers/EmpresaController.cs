@@ -162,13 +162,6 @@ namespace parcial.Controllers
             _DBcontexto.SaveChanges();
             return RedirectToAction("edit");
         }
-        public IActionResult EditOferta()
-        {
-            var id = HttpContext.Session.GetInt32("id_usuario");
-            ViewBag.nombre = HttpContext.Session.GetString("UsName");
-
-            return View();
-        }
 
         public IActionResult detUser() 
         {
@@ -178,6 +171,69 @@ namespace parcial.Controllers
             return View();
         }
 
-       
+
+        public IActionResult editOferta()
+        {
+            var id = HttpContext.Session.GetInt32("id_usuario");
+            ViewBag.id = HttpContext.Session.GetInt32("id_usuario");
+            ViewBag.nombre = HttpContext.Session.GetString("UsName");
+
+            var oferta = (from us in _DBcontexto.oferta
+                           where us.id_oferta == id
+                           select us).ToList().FirstOrDefault();
+            return View(oferta);
+        }
+
+            public async Task<IActionResult> modoferta(oferta poferta, IFormFile foto)
+        {
+            var id = HttpContext.Session.GetInt32("id_usuario");
+            ViewBag.nombre = HttpContext.Session.GetString("UsName");
+
+            oferta ooferta;
+            //agregar la imagen
+            //leer el archivo
+
+
+            var lempresa = (from us in _DBcontexto.oferta
+                            where us.id_oferta == id
+                            select us).ToList().FirstOrDefault();
+
+            lempresa.id_oferta = lempresa.id_oferta;
+
+            if (foto != null)
+            {
+                Stream archivoASubir = foto.OpenReadStream();
+
+                String email = "parcial@maill.com";
+                String clave = "123456";
+                String ruta = "parcial-54edf.appspot.com";
+                String api_key = "AIzaSyCFOvWjgguo11serR_6qfI9jRzaOicdsTQ";
+
+                var auth = new FirebaseAuthProvider(new FirebaseConfig(api_key));
+                var autenticarFireBase = await auth.SignInWithEmailAndPasswordAsync(email, clave);
+
+                var cancellation = new CancellationTokenSource();
+                var tokenUser = autenticarFireBase.FirebaseToken;
+
+                var tareaCargarArchivo = new FirebaseStorage(ruta, new FirebaseStorageOptions
+                {
+                    AuthTokenAsyncFactory = () => Task.FromResult(tokenUser),
+                    ThrowOnCancel = true
+                }
+                                                            ).Child("fotos")
+                                                            .Child(foto.FileName)
+                                                            .PutAsync(archivoASubir, cancellation.Token);
+                var urlArchivo = await tareaCargarArchivo;
+
+            }
+
+            _DBcontexto.Entry(lempresa).State = EntityState.Detached;
+
+            _DBcontexto.Entry(lempresa).State = EntityState.Modified;
+            _DBcontexto.SaveChanges();
+            return RedirectToAction(nameof(editOferta));
+        }
+
+
     }
 }

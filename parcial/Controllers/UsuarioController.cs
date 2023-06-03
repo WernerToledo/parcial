@@ -194,7 +194,7 @@ namespace parcial.Controllers
                 }
                 //agregar la imagen
             }
-            else
+            else 
             {
                 if (lusuario.foto != null)
                 {
