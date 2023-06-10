@@ -32,43 +32,80 @@
     </nav>
 </header>
 <!--Contenido-->
-<h1>Colocar todos los datos de la empresa que sean necesario solo que no se podran editar deben ser en modo vista</h1>
 
-<form>
     <section id="datos" class="pt-5">
         <div class="card border-primary pt-2 mb-4 ">
             <div class="row m-2">
-                <h3>Información acerca de la Empresa :</h3>
+                <h3>Información acerca del usuario: @Model.nombre</h3>
                 <br>
+                @if(Model.foto != null)
+                {
+                    <div class="container-md-6">
+                        <img src="@Model.foto" class="fluid" alt=" ">
+                    </div>
 
-                <div class="container-md-6">
-                    <img src=" " class="fluid" alt=" ">
-                </div>
+                }
+                else
+                {
+                    <div class="container-md-6">
+                        <img src="~/imgs/user.png" class="fluid" alt=" ">
+                    </div>                
+                }
 
                 <div class="col-sm-6">
-                    <label for="nombre" class="form-label">Nombre de la empresa :</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" readonly>
+                    <label for="nombre" class="form-label">Nombre del usuario: </label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" value="@Model.nombre" readonly>
                 </div>
 
 
                 <div class="col-sm-6 mb-3">
                     <label for="direccion" class="form-label">Dirección :</label>
-                    <textarea class="form-control" id="direccion" name="direccion" readonly></textarea>
+                    <textarea class="form-control" id="direccion" name="direccion" readonly>@Model.direccion</textarea>
                 </div>
 
                 <div class="col-sm-6 ">
                     <label for="telefono" class="form-label">Telefono :</label>
-                    <input type="text" class="form-control" id="telefono" name="telefono" readonly>
+                <input type="text" class="form-control" id="telefono" name="telefono" value="@Model.telefono" readonly>
                 </div>
 
                 <div class="col-sm-4">
                     <label for="correo" class="form-label">Correo :</label>
-                    <input type="email" class="form-control" id="correo" name="correo" readonly>
+                <input type="email" class="form-control" id="correo" name="correo" value="@Model.correo" readonly>
                 </div>
             </div>
         </div>
     </section>
-</form>
+<section>
+    <div class="card border-primary pt-2 mb-4 ">
+        <div class="row m-2">
+            <h3>Más sobre el Usuario :</h3>
+            <div class="col-sm-6">
+                <label for="direccion" class="form-label">Habilidades :</label>
+                <textarea class="form-control" id="habilidades" name="habilidades" readonly>@Model.habilidades</textarea>
+            </div>
+            <div class="col-sm-6">
+                <label for="direccion" class="form-label">Aptitudes :</label>
+                <textarea class="form-control" id="aptitudes" name="aptitudes" readonly>@Model.aptitudes</textarea>
+            </div>
+            <div class="col-sm-6">
+                <label for="direccion" class="form-label">Manejo de Tecnologías :</label>
+                <textarea class="form-control" id="tecnologias" name="tecnologias" readonly>@Model.tecnologias</textarea>
+            </div>
+            <div class="col-sm-6 mb-3">
+                <label for="direccion" class="form-label">Titulos :</label>
+                <textarea class="form-control" id="titulos" name="titulos" readonly>@Model.titulos</textarea>
+            </div>
+            <div class="col-sm-6">
+                <label for="direccion" class="form-label">Trabajos :</label>
+                <textarea class="form-control" id="trabajos" name="trabajos" readonly>@Model.trabajos</textarea>
+            </div>
+            <div class="col-sm-6">
+                <label for="direccion" class="form-label">Cursos :</label>
+                <textarea class="form-control" id="cursos" name="cursos" readonly>@Model.cursos</textarea>
+            </div>
+        </div>
+    </div>
+</section>
 
 <footer>
 </footer>

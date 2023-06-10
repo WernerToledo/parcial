@@ -78,93 +78,28 @@
 </div>
 <!--offcanvas-->
 <!--contenido-->
-<!--ESTE DISEÑO SE COPIO A USUARIO > APLICAR-->
-<div class="container">
-    <h3>Aplica por esta oferta ahora mismo!</h3>
-    <div class="pt-4 row">
-       @if (Model.foto != null)
-        {
-            <div class="col-sm-4">
-                <img src="@Model.foto" alt="" width="200" height="200">
-            </div>
-        }
-        else
-        {
-            <div class="col-sm-4">
-                <img src="~/imgs/user.png" alt="" width="200" height="200">
-            </div>
-        }
-
-        <div class="col-sm-4 pt-2">
-            <h3>@Model.nombre</h3>
-            <h4>Datos rápidos:</h4>
-            <ul>
-                <li>Dirección:@Model.ubicacion</li>
-                <li>Teléfono: @Model.telefono</li>
-                <li>Correo: @Model.correo</li>
-            </ul>
-        </div>
-    </div>
-
-    <section id="datos" class="pt-5">
-        <div class="card pt-2 mb-4 ">
-            <div class="row m-2">
-                <!--queda pendielte recuperar la info de la oferta para llenar el detalle-->
-                <div class="col-sm-6">
-                    <label for="nombre" class="form-label">Plaza disponible:</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" value="@Model.nombre" readonly>
+@if (ViewData["aplic"] != null)
+{
+    @foreach (var item in (IEnumerable<dynamic>)ViewData["aplic"])
+    {
+        <div class="container pt-4" style="background-color: #ebebeb;">
+            <div class="card">
+                <h3 class="card-header">Empresa a la que aplico: @item.nombre</h3>
+                <div class="row">
+                    <div class="col-9 col-lg-7 b-3">
+                        <h4>Tipo de trabajo: @item.tipo_trabajo</h4>
+                        <p><object class="pdfview" type="application/pdf" data="@item.curriculum" width="1000px" height="500vh" style="display: block;"></object>
+                    </div>
                 </div>
-
-                <div class="col-sm-6 mb-3">
-                    <label for="nombre_usuario" class="form-label">Salario</label>
-                    <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" value="@Model.salario" readonly>
-                </div>
-
-                <div class="col-sm-6 mb-3">
-                    <label for="fecha_contratacion" class="form-label">Fecha de contratación</label>
-                    <input type="text" class="form-control" id="fecha_contratacion" name="fecha_contratacion" value="@Model.fecha_contratacion" readonly>
-                </div>
-                <div class="col-sm-6 ">
-                    <label for="experiencia" class="form-label">Experiencia</label>
-                    <input type="text" class="form-control" id="experiencia" name="experiencia" value="@Model.experiencia" readonly>
-                </div>
-                <div class="col-sm-6 ">
-                    <label for="tipo_contrato" class="form-label">tipo de contrato</label>
-                    <input type="text" class="form-control" id="tipo_contrato" name="tipo_contrato" value="@Model.tipo_trabajo" readonly>
-                </div>
-                <div class="col-sm-6 ">
-                    <label for="rango_edad" class="form-label">Rango de edad</label>
-                    <input type="text" class="form-control" id="rango_edad" name="rango_edad" value="@Model.rango_edad" />
-                </div>
-                <div class="col-sm-6 ">
-                    <label for="nivel_academico" class="form-label">Nivel academico</label>
-                    <input type="text" class="form-control" id="nivel_academico" name="nivel_academico" value="@Model.nivel_academico" readonly>
-                </div>
-                <div class="col-sm-6 ">
-                    <label for="name">Requisitos:</label>
-                    <textarea class="form-control" name="requisitos" id="requisitos" rows="5" readonly>@Model.requisitos</textarea>
-                </div>
-                <div class="col-sm-6 ">
-                    <label for="name">Habilidades: :</label>
-                    <textarea class="form-control" name="habilidades" id="habilidades" rows="5" readonly>@Model.habilidades</textarea>
-                </div>
-
-
-                <div class="mt-4 col-sm-6">
-                    <form asp-action="aggDetOferta" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="pid_oferta" value="@Model.id_oferta" />
-                        <h5>Agrega tu CV</h5>
-                        <input type="file" class="form-control" id="cv" name="cv" />
-                        <button class="btn btn-success" type="submit">Aplicar</button>
-                    </form>
-
-                </div>
-
             </div>
         </div>
-    </section>
- 
-</div>
+    }
+}
+else
+{
+    <h4>No ha aplicado a ninguna empresa</h4>
+}
+
 <!--contenido-->
 <footer>
 </footer>

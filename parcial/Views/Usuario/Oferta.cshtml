@@ -29,6 +29,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-light" asp-area="" asp-controller="Usuario" asp-action="vEmpresas">Empresas</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Usuario" asp-action="vAplicaciones">Aplicaciones</a>
+                    </li>
                 </ul>
                 <form class="d-flex" role="search" asp-action="Buscar">
                     <input class="form-control me-2" type="text" placeholder="Buscar trabajo" aria-label="Search" name="nombre">
@@ -124,7 +127,11 @@
                                 </div>
                             </div>
                             <div class="pt-2 mb-2 col sm-2 text-center">
-                                <a type="button" class="btn btn-primary" asp-action="Aplicar">Ver detalles</a>
+                                <form asp-action="aplicar">
+                                    <input type="hidden" value="@item.id_oferta" name="pid_oferta" />
+                                    <button class="btn btn-primary" type="submit">Ver detalle</button>
+                                </form>
+                               
                             </div>
 
 

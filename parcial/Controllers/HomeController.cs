@@ -185,26 +185,31 @@ namespace parcial.Controllers
         public IActionResult datos_oferta(int id_oferta)
         {
 
-            var obOferta = (from o in _DBcontexto.oferta
+            var oferta = (from o in _DBcontexto.oferta
                           join e in _DBcontexto.usuario
                           on o.id_empresa equals e.id_usuario
                           where o.estado == 1 && o.id_oferta == id_oferta
                           select new
                           {
                               o.id_oferta,
+                              o.id_empresa,
                               o.tipo_trabajo,
                               o.salario,
                               o.experiencia,
                               o.tipo_contrato,
                               o.ubicacion,
                               e.nombre,
+                              e.telefono,
+                              e.correo,
                               o.fecha_publicacion,
                               o.foto,
+                              o.fecha_contratacion,
                               o.requisitos,
                               o.habilidades,
                               o.rango_edad,
                               o.nivel_academico
-                          }).ToList();
+                          }).ToList().FirstOrDefault();
+
 
             //variables de conteo
             var ConteoUsuarios = (from u in _DBcontexto.usuario
@@ -232,8 +237,7 @@ namespace parcial.Controllers
             ViewBag.conteoPublicacion = conteoPublicacion.ToList().Count();
             ViewBag.conteoSolicitudes = conteoSolicitudes.ToList().Count();
 
-            ViewData["oferta"] = obOferta;
-            return View();
+            return View(oferta);
         }
     }
 }

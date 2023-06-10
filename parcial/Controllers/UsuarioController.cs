@@ -25,6 +25,7 @@ namespace parcial.Controllers
                                    where o.estado == 1
                                    select new
                                    {
+                                       o.id_oferta,
                                        o.id_empresa,
                                        o.tipo_trabajo,
                                        o.salario,
@@ -70,6 +71,7 @@ namespace parcial.Controllers
                                    where o.estado == 1
                                    select new
                                    {
+                                       o.id_oferta,
                                        o.id_empresa,
                                        o.tipo_trabajo,
                                        o.salario,
@@ -114,6 +116,7 @@ namespace parcial.Controllers
                                    where o.tipo_trabajo.Contains(nombre) && o.estado == 1
                                    select new
                                    {
+                                       o.id_oferta,
                                        o.tipo_trabajo,
                                        o.salario,
                                        o.experiencia,
@@ -232,6 +235,7 @@ namespace parcial.Controllers
                                        where o.experiencia.ToUpper().Equals("sin experiencia") && o.salario <= 500 && o.estado == 1
                                        select new
                                        {
+                                           o.id_oferta,
                                            o.tipo_trabajo,
                                            o.salario,
                                            o.experiencia,
@@ -393,16 +397,89 @@ namespace parcial.Controllers
                 }
             }
         }
-        public IActionResult Aplicar()
+        public IActionResult Aplicar(int pid_oferta)
         {
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
-            return View();
+
+            var oferta = (from o in _DBcontexto.oferta
+                          join e in _DBcontexto.usuario
+                          on o.id_empresa equals e.id_usuario
+                          where o.estado == 1 && o.id_oferta== pid_oferta
+                          select new
+                          {
+                              o.id_oferta,
+                              o.id_empresa,
+                              o.tipo_trabajo,
+                              o.salario,
+                              o.experiencia,
+                              o.tipo_contrato,
+                              o.ubicacion,
+                              e.nombre,
+                              e.telefono,
+                              e.correo,
+                              o.fecha_publicacion,
+                              o.foto,
+                              o.fecha_contratacion,
+                              o.requisitos,
+                              o.habilidades,
+                              o.rango_edad,
+                              o.nivel_academico
+                          }).ToList().FirstOrDefault();
+
+            return View(oferta);
+        }
+
+        public async Task<IActionResult> aggDetOferta(int pid_oferta, IFormFile cv)
+        {
+            var id = HttpContext.Session.GetInt32("id_usuario");
+            ViewBag.nombre = HttpContext.Session.GetString("UsName");
+         
+            det_oferta odetOferta = new det_oferta();
+            if (cv != null)
+            {
+                Stream archivoASubir = cv.OpenReadStream();
+
+                String email = "parcial@maill.com";
+                String clave = "123456";
+                String ruta = "parcial-54edf.appspot.com";
+                String api_key = "AIzaSyCFOvWjgguo11serR_6qfI9jRzaOicdsTQ";
+
+                var auth = new FirebaseAuthProvider(new FirebaseConfig(api_key));
+                var autenticarFireBase = await auth.SignInWithEmailAndPasswordAsync(email, clave);
+
+                var cancellation = new CancellationTokenSource();
+                var tokenUser = autenticarFireBase.FirebaseToken;
+
+                var tareaCargarArchivo = new FirebaseStorage(ruta, new FirebaseStorageOptions
+                {
+                    AuthTokenAsyncFactory = () => Task.FromResult(tokenUser),
+                    ThrowOnCancel = true
+                }
+                                                            ).Child("fotos")
+                                                            .Child(cv.FileName)
+                                                            .PutAsync(archivoASubir, cancellation.Token);
+                var urlArchivo = await tareaCargarArchivo;
+                odetOferta.id_usuario = id;
+                odetOferta.id_oferta = pid_oferta;
+                odetOferta.curriculum = urlArchivo;
+
+            }
+
+            _DBcontexto.det_oferta.Add(odetOferta);
+            _DBcontexto.SaveChanges();
+            return RedirectToAction("index");
         }
         public IActionResult vEmpresas()
         {
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
+
+            var empresas = (from o in _DBcontexto.usuario
+                            where o.empresa == 1
+                            select o).ToList();
+
+            ViewData["empresas"] = empresas;
             return View();
         }
 
@@ -411,11 +488,17 @@ namespace parcial.Controllers
             return View();
         }
 
-        public IActionResult det_empresa()
+        public IActionResult det_empresa(int pid_usuario)
         {
             var id = HttpContext.Session.GetInt32("id_usuario");
             ViewBag.nombre = HttpContext.Session.GetString("UsName");
-            return View();
+
+            var empresa = (from o in _DBcontexto.usuario
+                            where o.empresa == 1 && o.id_usuario == pid_usuario
+                            select o).ToList().FirstOrDefault();
+
+
+            return View(empresa);
         }
         public IActionResult AggComentarioUs(comentario pComentario)
         {
@@ -426,6 +509,27 @@ namespace parcial.Controllers
             return RedirectToAction("index");
         }
 
+        public IActionResult vAplicaciones()
+        {
+            var id = HttpContext.Session.GetInt32("id_usuario");
+            ViewBag.nombre = HttpContext.Session.GetString("UsName");
+
+            var lAplicaciones = (from d in _DBcontexto.det_oferta
+                                 join u in _DBcontexto.usuario
+                                 on d.id_usuario equals u.id_usuario
+                                 join of in _DBcontexto.oferta
+                                 on d.id_oferta equals of.id_oferta
+                                 where d.id_usuario == id
+                                 select new
+                                 {
+                                     d.curriculum,
+                                     u.nombre,
+                                     of.tipo_trabajo
+                                 }).ToList();
+
+            ViewData["aplic"] = lAplicaciones;
+            return View();
+        }
 
     }
 }

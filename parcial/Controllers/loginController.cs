@@ -115,7 +115,7 @@ namespace parcial.Controllers
             }
             _DBcontexto.usuario.Add(ousuario);
             _DBcontexto.SaveChanges();
-            return RedirectToAction("crear");
+            return RedirectToAction("index");
         }
     }
 }

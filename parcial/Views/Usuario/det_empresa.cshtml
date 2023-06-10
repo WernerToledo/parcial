@@ -29,6 +29,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-light" asp-area="" asp-controller="Usuario" asp-action="vEmpresas">Empresas</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Usuario" asp-action="vAplicaciones">Aplicaciones</a>
+                    </li>
                 </ul>
                 <form class="d-flex" role="search" asp-action="Buscar">
                     <input class="form-control me-2" type="text" placeholder="Buscar trabajo" aria-label="Search" name="nombre">
@@ -75,71 +78,47 @@
 </div>
 <!--offcanvas-->
 <!--contenido-->
-<h1>Colocar todos los datos del usuario que sean necesario en este caso serian todos los que ingresa solo que no se podran editar es en modo vista</h1>
 <form>
     <section id="datos" class="pt-5">
         <div class="card border-primary pt-2 mb-4 ">
             <div class="row m-2">
-                <h3>Información del Usuario :</h3>
+                <h3>Información de la empresa: @Model.nombre</h3>
 
-                <div class="container-md-6">
-                    <img src=" " class="fluid" alt=" ">
-                </div>
+                @if(Model.foto != null){
+                    <div class="container-md-6">
+                        <img src="@Model.foto" class="fluid" alt=" ">
+                    </div>
+                }
+                else
+                {
+                    <div class="container-md-6">
+                        <img src="~/imgs/user.png" class="fluid" alt=" ">
+                    </div>
+                }
+
 
                 <div class="col-sm-6">
                     <label for="nombre" class="form-label">Nombre del Usuario :</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" readonly>
+                    <input type="text" class="form-control" id="nombre" name="nombre" value ="@Model.nombre" readonly>
                 </div>
 
                 <div class="col-sm-6 mb-3">
                     <label for="direccion" class="form-label">Dirección :</label>
-                    <textarea class="form-control" id="direccion" name="direccion" readonly></textarea>
+                    <textarea class="form-control" id="direccion" name="direccion" readonly>@Model.direccion</textarea>
                 </div>
 
                 <div class="col-sm-6 ">
                     <label for="telefono" class="form-label">Telefono :</label>
-                    <input type="text" class="form-control" id="telefono" name="telefono" readonly>
+                    <input type="text" class="form-control" id="telefono" name="telefono" value="@Model.telefono" readonly>
                 </div>
 
                 <div class="col-sm-4">
                     <label for="correo" class="form-label">Correo :</label>
-                    <input type="email" class="form-control" id="correo" name="correo" readonly>
+                    <input type="email" class="form-control" id="correo" name="correo" value="@Model.correo" readonly>
                 </div>
 
             </div>
 
-        </div>
-    </section>
-
-    <section>
-        <div class="card border-primary pt-2 mb-4 ">
-            <div class="row m-2">
-                <h3>Más sobre el Usuarion :</h3>
-                <div class="col-sm-6">
-                    <label for="direccion" class="form-label">Habilidades :</label>
-                    <textarea class="form-control" id="habilidades" name="habilidades" readonly></textarea>
-                </div>
-                <div class="col-sm-6">
-                    <label for="direccion" class="form-label">Aptitudes :</label>
-                    <textarea class="form-control" id="aptitudes" name="aptitudes" readonly></textarea>
-                </div>
-                <div class="col-sm-6">
-                    <label for="direccion" class="form-label">Manejo de Tecnologías :</label>
-                    <textarea class="form-control" id="tecnologias" name="tecnologias" readonly></textarea>
-                </div>
-                <div class="col-sm-6 mb-3">
-                    <label for="direccion" class="form-label">Titulos :</label>
-                    <textarea class="form-control" id="titulos" name="titulos" readonly></textarea>
-                </div>
-                <div class="col-sm-6">
-                    <label for="direccion" class="form-label">Trabajos :</label>
-                    <textarea class="form-control" id="trabajos" name="trabajos" readonly></textarea>
-                </div>
-                <div class="col-sm-6">
-                    <label for="direccion" class="form-label">Cursos :</label>
-                    <textarea class="form-control" id="cursos" name="cursos" readonly></textarea>
-                </div>
-            </div>
         </div>
     </section>
 </form>

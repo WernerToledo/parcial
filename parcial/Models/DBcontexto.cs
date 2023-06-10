@@ -9,6 +9,7 @@ namespace parcial.Models
         public DbSet<usuario> usuario { get; set; }
         public DbSet<oferta> oferta { get; set; }
         public DbSet<busquedas> busquedas { get; set; }
+        public DbSet<det_oferta> det_oferta { get; set; }
 
 
 

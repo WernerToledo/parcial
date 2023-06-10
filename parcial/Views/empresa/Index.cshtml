@@ -92,9 +92,10 @@
         </button>
     </div>
 
-    @if (ViewData["ListaTrabajos"] != null)
+    <h5 class="text-center">Sus ofertas actuales activas son</h5>
+    @if (ViewData["oferta"] != null)
     {
-        @foreach (var item in (IEnumerable<dynamic>)ViewData["ListaTrabajos"])
+        @foreach (var item in (IEnumerable<dynamic>)ViewData["oferta"])
         {
             <section id="datos" class="datos">
                 <div class="container mt-5 mb-3">
@@ -141,9 +142,9 @@
                                     </div>
                                 </div>
                                 <div class="pt-2 mb-2 col sm-2 text-center">
-                                    <form asp-action="datos_oferta">
-                                        <input type="hidden" value="@item.id_oferta" name="id_oferta" />
-                                        <button class="btn btn-primary" type="submit">Registrar</button>
+                                    <form asp-action="EditOferta">
+                                        <input type="hidden" value="@item.id_oferta" name="pid" />
+                                        <button class="btn btn-warning" type="submit">Editar oferta</button>
                                     </form>
                                 </div>
                             </div>

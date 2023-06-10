@@ -39,6 +39,7 @@ namespace parcial.Controllers
                                    where o.tipo_trabajo.Contains(nombre) && o.estado == 1
                                    select new
                                    {
+                                       o.id_oferta,
                                        o.tipo_trabajo,
                                        o.salario,
                                        o.experiencia,
@@ -70,6 +71,7 @@ namespace parcial.Controllers
                                        where o.experiencia.ToUpper().Equals("sin experiencia") && o.salario <= 500 && o.estado == 1
                                        select new
                                        {
+                                           o.id_oferta,
                                            o.tipo_trabajo,
                                            o.salario,
                                            o.experiencia,
